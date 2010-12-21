@@ -18,20 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef POINT_H_
+#define POINT_H_
+
 class Point {
 public:
 	Point();
-	Point(double xx, double yy, double zz);
-	Point(Point);
+	Point(double x, double y, double z);
+	Point(const Point &p);
 	~Point();
 	Point& operator=(const Point &p);
-	Point operator+(const Point &p);
-	Point operator-(const Point &p);
-	Point operator*(double w);
-	Point operator+(const Vector &p);
-	Point operator-(const Vector &p);
+	const Point operator+(const Point &p) const;
+	const Point operator-(const Point &p) const;
+	const Point operator*(double w) const;
+	const Point operator+(const Vector &p) const;
+	const Point operator-(const Vector &p) const;
 private:
-	double x;
-	double y;
-	double z;
+	double _x;
+	double _y;
+	double _z;
 };
+
+#endif /* POINT_H_ */

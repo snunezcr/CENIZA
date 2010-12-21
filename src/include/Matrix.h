@@ -18,26 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef VECTOR_H_
-#define VECTOR_H_
+#ifndef MATRIX_H_
+#define MATRIX_H_
 
-class Vector {
+class Matrix {
 public:
-	Vector();
-	Vector(double x, double y, double z);
-	Vector(const Vector &v);
-	~Vector();
-	Vector& operator=(const Vector &v);
-	const Vector operator+(const Vector &v) const;
-	const Vector operator-(const Vector &v) const;
-	const Vector operator*(double w) const;
-	const Vector operator+(const Point &p) const;
-	const Vector operator-(const Point &p) const;
-	const Vector normalize() const;
+	Matrix();
+	Matrix(unsigned int r, unsigned int c);
+	Matrix(const Matrix &m);
+	~Matrix();
+	Matrix& operator=(const Matrix &m);
+	const Matrix operator+(const Matrix &m) const;
+	const Matrix operator-(const Matrix &m) const;
+	const Matrix operator*(const Matrix &m) const;
+	const Point operator*(const Point &m) const;
+	const Vector operator*(const Vector &m) const;
+	const Matrix operator*(double d) const;
+	const Matrix normalize();
+	double& operator
 private:
-	double _x;
-	double _y;
-	double _z;
+	unsigned int rows;
+	unsigned int cols;
 };
 
-#endif /* VECTOR_H_ */
+#endif /* MATRIX_H_ */
