@@ -1,7 +1,7 @@
 /*
  * CENIZA: A multi-model ash dispersion simulation package
  *
- * Copyright (C) Red de Estaciones Meteorologicas 2010
+ * Copyright (C) Red Ciudadana de Estaciones Meteorologicas 2010
  * Author: Santiago Nunez Corrales <snunezcr@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,16 +34,15 @@ public:
 	const Matrix operator+(const Matrix &m) const;
 	const Matrix operator-(const Matrix &m) const;
 	const Matrix operator*(const Matrix &m) const;
-	const Point operator*(const Point &m) const;
-	const Vector operator*(const Vector &m) const;
+	const Point operator*(const Point &p) const;
+	const Vector operator*(const Vector &v) const;
 	const Matrix operator*(double d) const;
-	const Matrix normalize();
 	double& operator() (unsigned int row, unsigned int col);
 	double operator() (unsigned int row, unsigned int col) const;
 private:
 	unsigned int _rows;
 	unsigned int _cols;
-	double _data;
+	double *_data;
 };
 
 #endif /* MATRIX_H_ */

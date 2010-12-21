@@ -1,7 +1,7 @@
 /*
  * CENIZA: A multi-model ash dispersion simulation package
  *
- * Copyright (C) Red de Estaciones Meteorologicas 2010
+ * Copyright (C) Red Ciudadana de Estaciones Meteorologicas 2010
  * Author: Santiago Nunez Corrales <snunezcr@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,9 @@ public:
 	Vector(double x, double y, double z);
 	Vector(const Vector &v);
 	~Vector();
+	double getX() const;
+	double getY() const;
+	double getZ() const;
 	Vector operator=(const Vector &v);
 	const Vector operator+(const Vector &v) const;
 	const Vector operator-(const Vector &v) const;
