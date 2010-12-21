@@ -21,20 +21,17 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <Point.h>
-
 class Vector {
+	friend class Point;
 public:
 	Vector();
 	Vector(double x, double y, double z);
 	Vector(const Vector &v);
 	~Vector();
-	Vector& operator=(const Vector &v);
+	Vector operator=(const Vector &v);
 	const Vector operator+(const Vector &v) const;
 	const Vector operator-(const Vector &v) const;
 	const Vector operator*(double w) const;
-	const Vector operator+(const Point &p) const;
-	const Vector operator-(const Point &p) const;
 	const Vector normalize() const;
 private:
 	double _x;

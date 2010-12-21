@@ -18,32 +18,53 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MATRIX_H_
-#define MATRIX_H_
-
 #include <Point.h>
-#include <Vector.h>
 
-class Matrix {
-public:
-	Matrix();
-	Matrix(unsigned int r, unsigned int c);
-	Matrix(const Matrix &m);
-	~Matrix();
-	Matrix operator=(const Matrix &m);
-	const Matrix operator+(const Matrix &m) const;
-	const Matrix operator-(const Matrix &m) const;
-	const Matrix operator*(const Matrix &m) const;
-	const Point operator*(const Point &m) const;
-	const Vector operator*(const Vector &m) const;
-	const Matrix operator*(double d) const;
-	const Matrix normalize();
-	double& operator() (unsigned int row, unsigned int col);
-	double operator() (unsigned int row, unsigned int col) const;
-private:
-	unsigned int _rows;
-	unsigned int _cols;
-	double _data;
-};
+Point::Point(): _x(0), _y(0), _z(0) {
 
-#endif /* MATRIX_H_ */
+}
+
+Point::Point(double x, double y, double z): _x(x), _y(y), _z(z) {
+
+}
+
+Point::Point(const Point &p) {
+	_x = p._x;
+	_y = p._y;
+	_z = p._z;
+}
+
+Point::~Point() {
+
+}
+
+Point Point::operator=(const Point &p) {
+	_x = p._x;
+	_y = p._y;
+	_z = p._z;
+}
+
+const Point Point::operator+(const Point &p) const {
+	Point q(_x + p._x, _y + p._y, _z + p._z);
+	return q;
+}
+
+const Point Point::operator-(const Point &p) const {
+	Point q(_x - p._x, _y - p._y, _z - p._z);
+	return q;
+}
+
+const Point Point::operator*(double w) const {
+	Point q(_x * w, _y * w, _z * w);
+	return q;
+}
+
+const Point Point::operator+(const Vector &v) const {
+	Point q(_x + v._x, _y + v._y, _z + v._z);
+	return q;
+}
+
+const Point Point::operator-(const Vector &v) const {
+	Point q(_x + v._x, _y + v._y, _z + v._z);
+	return q;
+}

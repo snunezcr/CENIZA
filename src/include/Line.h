@@ -29,6 +29,7 @@ public:
 	Line(const Point &start, const Point &end);
 	Line(const Line &l);
 	~Line();
+	Line operator=(const Point &p);
 	const Line operator+(const Point &p) const;
 	const Line operator-(const Point &p) const;
 	const Line operator*(double w) const;

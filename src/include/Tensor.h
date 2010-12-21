@@ -31,7 +31,7 @@ public:
 	Tensor(unsigned int dims, unsigned int *lens);
 	Tensor(const Tensor &t);
 	~Tensor();
-	Tensor& operator=(const Tensor &m);
+	Tensor operator=(const Tensor &m);
 	const Tensor operator+(const Tensor &m) const;
 	const Tensor operator-(const Tensor &m) const;
 	const Tensor operator*(const Tensor &m) const;

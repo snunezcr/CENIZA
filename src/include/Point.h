@@ -22,19 +22,21 @@
 #define POINT_H_
 
 #include <Vector.h>
+#include <string>
 
 class Point {
+	friend class Vector;
 public:
 	Point();
 	Point(double x, double y, double z);
 	Point(const Point &p);
 	~Point();
-	Point& operator=(const Point &p);
+	Point operator=(const Point &p);
 	const Point operator+(const Point &p) const;
 	const Point operator-(const Point &p) const;
 	const Point operator*(double w) const;
-	const Point operator+(const Vector &p) const;
-	const Point operator-(const Vector &p) const;
+	const Point operator+(const Vector &v) const;
+	const Point operator-(const Vector &v) const;
 private:
 	double _x;
 	double _y;
