@@ -54,6 +54,10 @@ const Point Point::operator-(const Point &p) const {
 	return q;
 }
 
+double Point::operator*(const Point &p) const {
+	return _x * p._x + _y * p._y + _z - p._z;
+}
+
 const Point Point::operator*(double w) const {
 	Point q(_x * w, _y * w, _z * w);
 	return q;

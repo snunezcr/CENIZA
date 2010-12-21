@@ -18,29 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef VECTOR_H_
-#define VECTOR_H_
+#ifndef CONSTANTS_H_
+#define CONSTANTS_H_
 
-class Vector {
-	friend class Point;
-public:
-	Vector();
-	Vector(double x, double y, double z);
-	Vector(const Vector &v);
-	~Vector();
-	Vector operator=(const Vector &v);
-	const Vector operator+(const Vector &v) const;
-	const Vector operator-(const Vector &v) const;
-	double operator*(const Vector &v) const;
-	const Vector operator*(double w) const;
-	const Vector normalize() const;
-	double polarMag() const;
-	double polarPhi() const;
-	double polarPsi() const;
-private:
-	double _x;
-	double _y;
-	double _z;
-};
+#define PI 3.14159265358979
 
-#endif /* VECTOR_H_ */
+#endif /* CONSTANTS_H_ */
