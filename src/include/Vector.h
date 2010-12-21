@@ -21,6 +21,8 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
+#include <Point.h>
+
 class Vector {
 public:
 	Vector();

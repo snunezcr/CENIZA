@@ -18,32 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TENSOR_H_
-#define TENSOR_H_
+#ifndef LINE_H_
+#define LINE_H_
 
 #include <Point.h>
 #include <Vector.h>
 #include <Matrix.h>
 
-class Tensor {
+class Line {
 public:
-	Tensor();
-	Tensor(unsigned int dims, unsigned int *lens);
-	Tensor(const Tensor &t);
-	~Tensor();
-	Tensor& operator=(const Tensor &m);
-	const Tensor operator+(const Tensor &m) const;
-	const Tensor operator-(const Tensor &m) const;
-	const Tensor operator*(const Tensor &m) const;
-	const Tensor operator*(const Matrix &m) const;
-	const Tensor operator*(double d) const;
-	const Tensor normalize();
-	double& operator() (unsigned int index, ...);
-	double operator() (unsigned int index, ...) const;
+	Line(const Point &start, const Point &end);
+	Line(const Line &l);
+	~Line();
+	const Line operator+(const Point &p) const;
+	const Line operator-(const Point &p) const;
+	const Line operator*(double w) const;
+	bool hasPoint(const Point &p) const;
 private:
-	unsigned int _dims;
-	unsigned int *_lens;
-	double *_data;
+	Point _start;
+	Point _end;
 };
 
-#endif /* TENSOR_H_ */
+#endif /* LINE_H_ */

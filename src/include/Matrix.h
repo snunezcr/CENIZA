@@ -21,6 +21,9 @@
 #ifndef MATRIX_H_
 #define MATRIX_H_
 
+#include <Point.h>
+#include <Vector.h>
+
 class Matrix {
 public:
 	Matrix();
