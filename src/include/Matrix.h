@@ -35,10 +35,11 @@ public:
 	const Vector operator*(const Vector &m) const;
 	const Matrix operator*(double d) const;
 	const Matrix normalize();
-	double& operator
+	double& operator() (unsigned int row, unsigned int col);
+	double operator() (unsigned int row, unsigned int col) const;
 private:
-	unsigned int rows;
-	unsigned int cols;
+	unsigned int _rows;
+	unsigned int _cols;
 };
 
 #endif /* MATRIX_H_ */
