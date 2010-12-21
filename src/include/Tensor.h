@@ -18,29 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MATRIX_H_
-#define MATRIX_H_
+#ifndef TENSOR_H_
+#define TENSOR_H_
 
-class Matrix {
+class Tensor {
 public:
-	Matrix();
-	Matrix(unsigned int r, unsigned int c);
-	Matrix(const Matrix &m);
-	~Matrix();
-	Matrix& operator=(const Matrix &m);
-	const Matrix operator+(const Matrix &m) const;
-	const Matrix operator-(const Matrix &m) const;
-	const Matrix operator*(const Matrix &m) const;
-	const Point operator*(const Point &m) const;
-	const Vector operator*(const Vector &m) const;
-	const Matrix operator*(double d) const;
-	const Matrix normalize();
-	double& operator() (unsigned int row, unsigned int col);
-	double operator() (unsigned int row, unsigned int col) const;
+	Tensor();
+	Tensor(unsigned int dims, unsigned int *lens);
+	Tensor(const Tensor &t);
+	~Tensor();
+	Tensor& operator=(const Tensor &m);
+	const Tensor operator+(const Tensor &m) const;
+	const Tensor operator-(const Tensor &m) const;
+	const Tensor operator*(const Tensor &m) const;
+	const Tensor operator*(const Point &m) const;
+	const Tensor operator*(const Vector &m) const;
+	const Tensor operator*(double d) const;
+	const Tensor normalize();
+	double& operator() (unsigned int index, ...);
+	double operator() (unsigned int index, ...) const;
 private:
-	unsigned int _rows;
-	unsigned int _cols;
-	double _data;
+	unsigned int _dims;
+	unsigned int *_lens;
+	double *_data;
 };
 
-#endif /* MATRIX_H_ */
+#endif /* TENSOR_H_ */
