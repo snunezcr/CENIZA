@@ -31,8 +31,7 @@ public:
 	const Tensor operator+(const Tensor &m) const;
 	const Tensor operator-(const Tensor &m) const;
 	const Tensor operator*(const Tensor &m) const;
-	const Tensor operator*(const Point &m) const;
-	const Tensor operator*(const Vector &m) const;
+	const Tensor operator*(const Matrix &m) const;
 	const Tensor operator*(double d) const;
 	const Tensor normalize();
 	double& operator() (unsigned int index, ...);
