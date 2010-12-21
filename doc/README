@@ -1,0 +1,15 @@
+CENIZA 1.0
+
+Santiago Nunez Corrales <snunezcr@gmail.com>
+Red Ciudadana de Estaciones Meteorologicas
+
+Introduction
+------------
+
+Volcanic ash dispersion is common in the Pacific Rim. Various simulation models
+exist for approximating how ash dispersion occurs. This package provides a new,
+fresh attempt at a unified simulation implementation that can be extended and
+allows for implementation of novel numerical models within its specification.
+
+Also, special attention is given to parallelism. This software can be compiled
+with or without support for OpenMP and MPI, or include any of those.
