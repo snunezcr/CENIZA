@@ -18,7 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 class Point {
 public:
 	Point();
@@ -29,6 +28,8 @@ public:
 	Point operator+(const Point &p);
 	Point operator-(const Point &p);
 	Point operator*(double w);
+	Point operator+(const Vector &p);
+	Point operator-(const Vector &p);
 private:
 	double x;
 	double y;
