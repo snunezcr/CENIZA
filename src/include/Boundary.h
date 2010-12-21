@@ -18,17 +18,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FIELD_H_
-#define FIELD_H_
+#ifndef BOUNDARY_H_
+#define BOUNDARY_H_
 
 #include <Point.h>
 
-class Field {
+/*
+ * A boundary assumes only two points defining a box. The lower, front left
+ * one and the upper, right back one. Directions follow usual right hand rules
+ * of Cartesian coordinates.
+ */
+
+class Boundary {
 public:
-	Field(Boundary *b);
-	~Field();
+	Boundary(Point &llf, Point &urb);
+	Boundary(const Boundary &b);
+	~Boundary();
+	const Point getLLF() const;
+	const Point getULF() const;
+	const Point getLRF() const;
+	const Point getURF() const;
+	const Point getLLB() const;
+	const Point getULB() const;
+	const Point getLRB() const;
+	const Point getURB() const;
 private:
-	Boundary *_bounds;
+	Point _llf;			// Lower left front
+	Point _urb			// Upper right back
 };
 
-#endif /* FIELD_H_ */
+#endif /* BOUNDARY_H_ */
