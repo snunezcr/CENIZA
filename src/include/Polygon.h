@@ -18,24 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LINE_H_
-#define LINE_H_
+#ifndef POLYGON_H_
+#define POLYGON_H_
 
 #include <Point.h>
 #include <Vector.h>
+#include <Line.h>
+#include <vector>
 
-class Line {
+class Polygon {
 public:
-	Line(const Point &start, const Point &end);
-	Line(const Line &l);
-	~Line();
-	const Line operator+(const Point &p) const;
-	const Line operator-(const Point &p) const;
-	const Line operator*(double w) const;
-	bool hasPoint(const Point &p) const;
+	Polygon();
+	Polygon(const Polygon &g);
+	~Polygon();
+	Polygon& add(const Line &l);
+	Polygon operator^(const Polygon &g) const;		// Intersection
+	Polygon operator+(const Polygon &g) const;		// Union
+	Polygon operator-(const Polygon &g) const;		// Difference
+	Point interpolate(double x, double y) const;	// Calculate height at x, y
 private:
-	Point _start;
-	Point _end;
+	vector<Line> _lines;
+	unsigned int _elements;
 };
 
-#endif /* LINE_H_ */
+#endif /* POLYGON_H_ */
