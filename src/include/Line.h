@@ -22,7 +22,6 @@
 #define LINE_H_
 
 #include <Point.h>
-#include <Vector.h>
 
 class Line {
 public:
