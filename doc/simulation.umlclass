@@ -684,7 +684,7 @@
     </children>
     <styles xmi:type="notation:CanonicalStyle" xmi:id="_ZEihcRdXEeCbyokYsZ8EyA"/>
     <element xmi:type="uml:Class" href="simulation.uml#_ZDpwoBdXEeCbyokYsZ8EyA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZEihchdXEeCbyokYsZ8EyA" x="732" y="24"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZEihchdXEeCbyokYsZ8EyA" x="252" y="96"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_6WvRARdOEeCbyokYsZ8EyA"/>
   <styles xmi:type="uml2tools.notation:U2TDiagramCanonicalStyle" xmi:id="_6WvRAhdOEeCbyokYsZ8EyA"/>
