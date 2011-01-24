@@ -34,69 +34,37 @@
  *
  */
 
-#include <Line.h>
-
-Line::Line(const Point &start, const Point &end) {
-	_start  = start;
-	_end = end;
+Polygon::Polygon() {
+	_elements = 0;
 }
 
-Line::Line(const Line &l) {
-	if (&l == this)
-		return;
-
-	_start = l._start;
-	_end = l._end;
+Polygon::Polygon(const Polygon &g) {
+	if (&g != this) {
+		_lines = g._lines;
+		_elements = _elements;
+	}
 }
 
-Line::~Line() {
+Polygon::~Polygon() {
 }
 
-bool operator==(const Line &l) const {
-	if (_start == l._start && _end == l._end)
-		return true;
-	else
-		return false;
-}
-
-Line Line::operator=(const Line &l) {
-	if (&l != this) {
-		_start = l._start;
-		_end = l._end;
+Polygon& Polygon::add(const Line &l) {
+	// Check we have not already added the line
+	for (int i = 0; i < _lines.size(); i++) {
+		if (((Line)_lines[i]) == l) {
+			continue;
+		} else {
+			_lines.push_back(l);
+		}
 	}
 
 	return *this;
 }
 
-const Line Line::operator+(const Point &p) const {
-	Line m(_start, _end);
-	m._start = _start + p;
-	m._end = _end + p;
-	return m;
-}
+Polygon Polygon::operator^(const Polygon &g) const;
 
-const Line Line::operator-(const Point &p) const {
-	Line m(_start, _end);
-	m._start = _start - p;
-	m._end = _end - p;
-	return m;
-}
+Polygon Polygon::operator+(const Polygon &g) const;
 
-const Line Line::operator*(double w) const {
-	Line m(_start, _end);
-	m._start = _start * w;
-	m._end = _end * w;
-	return m;
-}
+Polygon Polygon::operator-(const Polygon &g) const;
 
-bool Line::hasPoint(const Point &p) const {
-	if (_start == p || _end == p)
-		return true;
-	else {
-		if (1) {
-
-		} else {
-			return false;
-		}
-	}
-}
+Point Polygon::interpolate(double x, double y) const;
