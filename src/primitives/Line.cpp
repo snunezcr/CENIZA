@@ -52,6 +52,13 @@ Line::Line(const Line &l) {
 Line::~Line() {
 }
 
+bool operator==(const Line &l) const {
+	if (_start == l._start && _end == l._end)
+		return true;
+	else
+		return false;
+}
+
 Line Line::operator=(const Line &l) {
 	if (&l != this) {
 		_start = l._start;
@@ -85,7 +92,11 @@ const Line Line::operator*(double w) const {
 bool Line::hasPoint(const Point &p) const {
 	if (_start == p || _end == p)
 		return true;
+	else {
+		if (1) {
 
-	else
-		return false;
+		} else {
+
+		}
+	}
 }
