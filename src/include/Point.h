@@ -54,6 +54,7 @@ public:
 	const Point operator+(const Point &p) const;
 	const Point operator-(const Point &p) const;
 	double operator*(const Point &p) const;
+	bool operator==(const Point &p) const;
 	const Point operator*(double w) const;
 	const Point operator+(const Vector &v) const;
 	const Point operator-(const Vector &v) const;

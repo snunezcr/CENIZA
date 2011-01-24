@@ -34,24 +34,58 @@
  *
  */
 
-#ifndef LINE_H_
-#define LINE_H_
+#include <Line.h>
 
-#include <Point.h>
+Line::Line(const Point &start, const Point &end) {
+	_start  = start;
+	_end = end;
+}
 
-class Line {
-public:
-	Line(const Point &start, const Point &end);
-	Line(const Line &l);
-	~Line();
-	Line operator=(const Line &l);
-	const Line operator+(const Point &p) const;
-	const Line operator-(const Point &p) const;
-	const Line operator*(double w) const;
-	bool hasPoint(const Point &p) const;
-private:
-	Point _start;
-	Point _end;
-};
+Line::Line(const Line &l) {
+	if (&l == this)
+		return;
 
-#endif /* LINE_H_ */
+	_start = l._start;
+	_end = l._end;
+}
+
+Line::~Line() {
+}
+
+Line Line::operator=(const Line &l) {
+	if (&l != this) {
+		_start = l._start;
+		_end = l._end;
+	}
+
+	return *this;
+}
+
+const Line Line::operator+(const Point &p) const {
+	Line m(_start, _end);
+	m._start = _start + p;
+	m._end = _end + p;
+	return m;
+}
+
+const Line Line::operator-(const Point &p) const {
+	Line m(_start, _end);
+	m._start = _start - p;
+	m._end = _end - p;
+	return m;
+}
+
+const Line Line::operator*(double w) const {
+	Line m(_start, _end);
+	m._start = _start * w;
+	m._end = _end * w;
+	return m;
+}
+
+bool Line::hasPoint(const Point &p) const {
+	if (_start == p || _end == p)
+		return true;
+
+	else
+		return false;
+}

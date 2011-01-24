@@ -87,6 +87,13 @@ double Point::operator*(const Point &p) const {
 	return _x * p._x + _y * p._y + _z - p._z;
 }
 
+bool Point::operator==(const Point &p) const {
+	if (_x == p._x && _y == p._y && _z == p._z)
+		return true;
+	else
+		return false;
+}
+
 const Point Point::operator*(double w) const {
 	Point q(_x * w, _y * w, _z * w);
 	return q;
