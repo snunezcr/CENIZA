@@ -190,29 +190,48 @@ double Matrix::det() const {
 
 	// Follow traditional diagonal algorithm, use direct access
 	// in order to avoid method call
-	_det += _data[0]*_data[4]*_data[8];
-	_det += _data[1]*_data[5]*_data[6];
-	_det += _data[2]*_data[3]*_data[7];
-	_det -= _data[6]*_data[4]*_data[2];
-	_det -= _data[7]*_data[5]*_data[0];
-	_det -= _data[8]*_data[3]*_data[1];
+	det += _data[0]*_data[4]*_data[8];
+	det += _data[1]*_data[5]*_data[6];
+	det += _data[2]*_data[3]*_data[7];
+	det -= _data[6]*_data[4]*_data[2];
+	det -= _data[7]*_data[5]*_data[0];
+	det -= _data[8]*_data[3]*_data[1];
 
 	return det;
 }
 
 const Matrix Matrix::inv() const {
 	Matrix n;
+	double d = det();
 
-	if (det() == 0)
+	if (d == 0)
+		return n;
+
+	if (_cols != 3 || _rows != 3)
 		return n;
 
 	// Calculate the transpose
 	Matrix t = this->transp();
-	// Build new matrix of cofactors
+	// Build the matrix of cofactors
+	n(0,0) = t(1, 1)*t(2, 2) - t(2, 1)*t(1, 2);
+	n(0,1) = t(1, 0)*t(2, 2) - t(2, 0)*t(1, 2);
+	n(0,2) = t(1, 0)*t(2, 1) - t(2, 0)*t(1, 1);
+	n(1,0) = t(0, 1)*t(2, 2) - t(2, 1)*t(0, 2);
+	n(1,1) = t(0, 0)*t(2, 2) - t(2, 0)*t(0, 2);
+	n(1,2) = t(0, 0)*t(2, 1) - t(2, 0)*t(0, 1);
+	n(2,0) = t(0, 1)*t(1, 2) - t(1, 1)*t(0, 2);
+	n(2,1) = t(0, 0)*t(1, 2) - t(1, 0)*t(0, 2);
+	n(2,2) = t(0, 0)*t(1, 1) - t(1, 0)*t(0, 1);
 
+	// Multiply by determinant and change sign
+	for (int i = 0; i < _rows; i++)
+		for (int j = 0; j < _cols; j++)
+			if ((i + j)% 2 == 0)
+				n._data[i * _cols + j] *= 1/d;
+			else
+				n._data[i * _cols + j] *= -1/d;
 
 	return n;
-
 }
 
 const Matrix Matrix::transp() const {
