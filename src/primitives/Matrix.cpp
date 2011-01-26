@@ -96,8 +96,8 @@ const Matrix Matrix::operator+(const Matrix &m) const {
 
 	Matrix n(*this);
 
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			n._data[ i * _cols + j] += m._data[ i * _cols + j];
 
 	return n;
@@ -109,8 +109,8 @@ const Matrix Matrix::operator-(const Matrix &m) const {
 
 	Matrix n(*this);
 
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			n._data[ i * _cols + j] -= m._data[ i * _cols + j];
 
 	return n;
@@ -119,9 +119,9 @@ const Matrix Matrix::operator-(const Matrix &m) const {
 const Matrix Matrix::operator*(const Matrix &m) const {
 	Matrix n(_rows, m._cols);
 
-	for (int i = 0; i < _rows; i++)
-			for (int j = 0; j < m._cols; j++)
-				for (int k = 0; k < m._rows; k++)
+	for (unsigned int i = 0; i < _rows; i++)
+			for (unsigned int j = 0; j < m._cols; j++)
+				for (unsigned int k = 0; k < m._rows; k++)
 					n._data[ i * _cols + j] +=
 							_data[ i * _cols + k] * m._data[ k * _cols + j];
 
@@ -159,8 +159,8 @@ const Vector Matrix::operator*(const Vector &v) const {
 const Matrix Matrix::operator*(double d) const {
 	Matrix n(*this);
 
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			n._data[i * _cols + j] *= d;
 
 	return n;
@@ -178,4 +178,50 @@ double Matrix::operator() (unsigned int row, unsigned int col) const {
 		throw OutOfBoundsException();
 
 	return _data[row * _cols + col];
+}
+
+
+double Matrix::det() const {
+	// Only for 3x3 matrices, signal non invertible otherwise
+	if (_rows != 3 || _cols != 3)
+		return 0;
+
+	double det = 0;
+
+	// Follow traditional diagonal algorithm, use direct access
+	// in order to avoid method call
+	_det += _data[0]*_data[4]*_data[8];
+	_det += _data[1]*_data[5]*_data[6];
+	_det += _data[2]*_data[3]*_data[7];
+	_det -= _data[6]*_data[4]*_data[2];
+	_det -= _data[7]*_data[5]*_data[0];
+	_det -= _data[8]*_data[3]*_data[1];
+
+	return det;
+}
+
+const Matrix Matrix::inv() const {
+	Matrix n;
+
+	if (det() == 0)
+		return n;
+
+	// Calculate the transpose
+	Matrix t = this->transp();
+	// Build new matrix of cofactors
+
+
+	return n;
+
+}
+
+const Matrix Matrix::transp() const {
+	// Reuse a copy of itself
+	Matrix n(_cols, _rows);
+
+	for (int i = 0; i < _rows; i++)
+			for (int j = 0; j < _cols; j++)
+				n._data[j * _rows + i] = _data[i * _cols + j];
+
+	return n;
 }

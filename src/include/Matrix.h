@@ -55,6 +55,9 @@ public:
 	const Matrix operator*(double d) const;
 	double& operator() (unsigned int row, unsigned int col);
 	double operator() (unsigned int row, unsigned int col) const;
+	double det() const;
+	const Matrix inv() const;
+	const Matrix transp() const;
 private:
 	unsigned int _rows;
 	unsigned int _cols;

@@ -41,7 +41,7 @@
  * F/B = z
  */
 
-#include <Boundary.cpp>
+#include <Boundary.h>
 
 Boundary::Boundary(Point &llf, Point &urb) {
 	_llf = llf;

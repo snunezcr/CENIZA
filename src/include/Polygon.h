@@ -50,7 +50,7 @@ public:
 	Polygon(const Polygon &g);
 	~Polygon();
 	Polygon& add(const Line &l);
-	Point interpolate(double x, double y) const;	// Calculate height at x, y
+	const Point interpolateHeight(double x, double y) const;	// Calculate height at x, y
 private:
 	vector<Line> _lines;
 	unsigned int _elements;

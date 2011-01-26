@@ -36,6 +36,8 @@
 
 #include <Polygon.h>
 
+// In this class, we use the idea of polygon as
+
 Polygon::Polygon() {
 	_elements = 0;
 }
@@ -63,10 +65,13 @@ Polygon& Polygon::add(const Line &l) {
 	return *this;
 }
 
-Polygon Polygon::operator^(const Polygon &g) const;
+const Point Polygon::interpolateHeight(double x, double y) const {
+	Point s1(x, y, 1);
+	Point s0(x, y, 0);
+	Point s;
 
-Polygon Polygon::operator+(const Polygon &g) const;
+	// We will always assume that points in a polygon make a triangle
+	// and are connected
 
-Polygon Polygon::operator-(const Polygon &g) const;
-
-Point Polygon::interpolate(double x, double y) const;
+	return s;
+}
