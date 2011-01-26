@@ -34,7 +34,7 @@
  *
  */
 
-/* Logica:
+/* Logic:
  *
  * U/L = x
  * L/R = y

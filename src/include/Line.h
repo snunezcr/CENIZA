@@ -50,6 +50,8 @@ public:
 	const Line operator-(const Point &p) const;
 	const Line operator*(double w) const;
 	bool hasPoint(const Point &p) const;
+	const Point getStart() const;
+	const Point getEnd() const;
 private:
 	Point _start;
 	Point _end;

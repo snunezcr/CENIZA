@@ -115,3 +115,10 @@ bool Line::hasPoint(const Point &p) const {
 		return true;
 	}
 }
+
+const Point Line::getStart() const {
+	return _start;
+}
+const Point Line::getEnd() const {
+	return _end;
+}
