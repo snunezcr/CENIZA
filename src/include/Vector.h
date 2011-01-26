@@ -51,7 +51,9 @@ public:
 	const Vector operator+(const Vector &v) const;
 	const Vector operator-(const Vector &v) const;
 	double operator*(const Vector &v) const;
+	const Vector operator^(const Vector &p) const;	// Operator for cross product
 	const Vector operator*(double w) const;
+	bool operator==(const Vector &v) const;
 	const Vector normalize() const;
 	double polarMag() const;
 	double polarPhi() const;
