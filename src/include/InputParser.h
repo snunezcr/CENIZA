@@ -47,7 +47,7 @@
 using namespace std;
 
 typedef std::map<String,String> VariableSet;
-typedef std::set<String> StringsSet;
+typedef std::set<String> StringSet;
 
 class InputParser {
 public:
@@ -59,11 +59,11 @@ public:
 	const string &loadString(const string &name, const String &defval) const;
 	long loadInt(const string &name, long defval) const;
 	Vector loadVector(const string &name, const Vector &defval) const;
-	Punto loadPoint(const string &name, const Point &defval) const;
+	Point loadPoint(const string &name, const Point &defval) const;
 	int setSection(const string &s);
 private:
 	void *vars;
-	void *sects;
+	void *secs;
 	string _fileName;
 	string _localSection;
 	bool _loaded;
