@@ -52,7 +52,7 @@ Polygon::~Polygon() {
 
 Polygon& Polygon::add(const Line &l) {
 	// Check we have not already added the line
-	for (int i = 0; i < _lines.size(); i++) {
+	for (unsigned int i = 0; i < _lines.size(); i++) {
 		if (((Line)_lines[i]) == l) {
 			continue;
 		} else {

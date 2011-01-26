@@ -53,7 +53,8 @@ Line::~Line() {
 }
 
 bool Line::operator==(const Line &l) const {
-	if (_start == l._start && _end == l._end)
+	// Be careful to observe symmetry, do not assume direction!
+	if ( (_start == l._start && _end == l._end) || (_start == l._end && _end == l._start))
 		return true;
 	else
 		return false;

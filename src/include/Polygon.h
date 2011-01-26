@@ -42,15 +42,14 @@
 #include <Line.h>
 #include <vector>
 
+using namespace std;
+
 class Polygon {
 public:
 	Polygon();
 	Polygon(const Polygon &g);
 	~Polygon();
 	Polygon& add(const Line &l);
-	Polygon operator^(const Polygon &g) const;		// Intersection
-	Polygon operator+(const Polygon &g) const;		// Union
-	Polygon operator-(const Polygon &g) const;		// Difference
 	Point interpolate(double x, double y) const;	// Calculate height at x, y
 private:
 	vector<Line> _lines;
