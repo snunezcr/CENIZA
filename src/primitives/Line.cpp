@@ -52,7 +52,7 @@ Line::Line(const Line &l) {
 Line::~Line() {
 }
 
-bool operator==(const Line &l) const {
+bool Line::operator==(const Line &l) const {
 	if (_start == l._start && _end == l._end)
 		return true;
 	else
@@ -93,10 +93,24 @@ bool Line::hasPoint(const Point &p) const {
 	if (_start == p || _end == p)
 		return true;
 	else {
-		if (1) {
+		// Clever algorithm:
+		// Find a constant t such that SE is linearly dependent of SP
+		// and 0 <= t <= 1
+		Point se = _end - _start;
+		Point sp = p - _start;
 
-		} else {
+		double tx = sp.getX() / se.getX();
+		double ty = sp.getY() / se.getY();
+		double tz = sp.getZ() / se.getZ();
+
+		// Check if there is a difference
+		if (tx != ty || tx != tz)
 			return false;
-		}
+
+		// We have found a linear factor, check limits
+		if (tx < 0 || tx > 1)
+			return false;
+
+		return true;
 	}
 }

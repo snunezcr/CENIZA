@@ -38,7 +38,6 @@
 #define POINT_H_
 
 #include <Vector.h>
-#include <string>
 
 class Point {
 	friend class Vector;
@@ -53,6 +52,7 @@ public:
 	Point operator=(const Point &p);
 	const Point operator+(const Point &p) const;
 	const Point operator-(const Point &p) const;
+	const Point operator^(const Point &p) const;	// Operator for cross product
 	double operator*(const Point &p) const;
 	bool operator==(const Point &p) const;
 	const Point operator*(double w) const;

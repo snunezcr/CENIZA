@@ -34,6 +34,8 @@
  *
  */
 
+#include <Polygon.h>
+
 Polygon::Polygon() {
 	_elements = 0;
 }
