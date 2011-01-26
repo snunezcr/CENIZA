@@ -38,6 +38,8 @@
 #define DEM_H_
 
 #include <Boundary.h>
+#include <Polygon.h>
+#include <vector>
 
 class DEM {
 public:
@@ -45,8 +47,10 @@ public:
 	~DEM();
 	void load();
 	Boundary getBounds() const;
+	vector<Point> sample(int mode);
 private:
 	char *_filename;
+	vector<Polygon> _triangles;
 };
 
 #endif /* DEM_H_ */

@@ -50,6 +50,9 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.913634813" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1645239025">
 <option id="gnu.cpp.compiler.exe.debug.option.optimization.level.1187374991" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.exe.debug.option.debugging.level.231102266" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.include.paths.1283820439" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CENIZA/src/include}&quot;"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1889132214" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.982010492" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1820270983">
@@ -60,9 +63,7 @@
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1456979151" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1591120646"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.372801574" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1464225137"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.254760866" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug.511598814">
-<option id="gnu.both.asm.option.include.paths.958284699" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CENIZA/src/include}&quot;"/>
-</option>
+<option id="gnu.both.asm.option.include.paths.958284699" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath"/>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.215426790" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 </toolChain>
@@ -1052,21 +1053,25 @@
 </folderInfo>
 <folderInfo id="cdt.managedbuild.config.gnu.exe.release.1575170243.787352454" name="/" resourcePath="src/models">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.release.1203561577" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.release" unusedChildren="">
+<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.release" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.release"/>
 <tool id="cdt.managedbuild.tool.gnu.archiver.base.1639883371" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.2146763435"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1567884690" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1960779197">
-<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1022089231" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.exe.release.option.debugging.level.120597927" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1022089231" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.exe.release.option.debugging.level.120597927" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.include.paths.342810372" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CENIZA/src/include}&quot;"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.2112014714" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.319739812" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release.427459460">
-<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.577366906" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>
-<option id="gnu.c.compiler.exe.release.option.debugging.level.1062566767" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.577366906" name="Optimization Level" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>
+<option id="gnu.c.compiler.exe.release.option.debugging.level.1062566767" name="Debug Level" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.31727527" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.436943398" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release.740662104"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.240847387" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.549667019"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.exe.release.241199027" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.release.458331576">
-<option id="gnu.both.asm.option.include.paths.588288134" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+<option id="gnu.both.asm.option.include.paths.588288134" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CENIZA/src/include}&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.834461173" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>

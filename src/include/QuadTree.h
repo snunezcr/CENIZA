@@ -34,33 +34,21 @@
  *
  */
 
-#ifndef BOUNDARY_H_
-#define BOUNDARY_H_
+#ifndef QUADTREE_H_
+#define QUADTREE_H_
 
-#include <Point.h>
+#include <vector>
 
-/*
- * A boundary assumes only two points defining a box. The lower, front left
- * one and the upper, right back one. Directions follow usual right hand rules
- * of Cartesian coordinate systems.
- */
-
-class Boundary {
+template <class T, class S> class QuadTree {
 public:
-	Boundary(Point &llf, Point &urb);
-	Boundary(const Boundary &b);
-	~Boundary();
-	const Point getLLF() const;
-	const Point getULF() const;
-	const Point getLRF() const;
-	const Point getURF() const;
-	const Point getLLB() const;
-	const Point getULB() const;
-	const Point getLRB() const;
-	const Point getURB() const;
+	QuadTree();
+	void add(vector<T> elements);
+	void add(T element);
+	S interpolate(double x, double y)
 private:
-	Point _llf;			// Lower left front
-	Point _urb;			// Upper right back
+	// An inner class will handle the quadtree structure
+	// TODO
+	int _elements;
 };
 
-#endif /* BOUNDARY_H_ */
+#endif /* QUADTREE_H_ */
