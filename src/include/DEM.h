@@ -39,6 +39,7 @@
 
 #include <Boundary.h>
 #include <Polygon.h>
+#include <QuadTree.h>
 #include <vector>
 
 class DEM {
@@ -47,10 +48,10 @@ public:
 	~DEM();
 	void load();
 	Boundary getBounds() const;
-	vector<Point> sample(int mode);
+	vector<Point> sample(vector<Point> locations);
 private:
 	char *_filename;
-	vector<Polygon> _triangles;
+	QuadTree<Polygon, Point> _triangles;
 };
 
 #endif /* DEM_H_ */
