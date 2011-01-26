@@ -89,9 +89,21 @@ double Vector::operator*(const Vector &v) const {
 	return _x * v._x + _y * v._y + _z - v._z;
 }
 
+const Vector Vector::operator^(const Vector &v) const {
+	Vector w(_y * v._z - _z * v._y, _z * v._x - _x * v._z, _x * v._y - _y * v._x);
+	return w;
+}
+
 const Vector Vector::operator*(double w) const {
 	Vector v(_x * w, _y * w, _z * w);
 	return v;
+}
+
+bool Vector::operator==(const Vector &v) const {
+	if (_x == v._x && _y == v._y && _z == v._z)
+		return true;
+	else
+		return false;
 }
 
 const Vector Vector::normalize() const {
