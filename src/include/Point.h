@@ -37,10 +37,7 @@
 #ifndef POINT_H_
 #define POINT_H_
 
-#include <Vector.h>
-
 class Point {
-	friend class Vector;
 public:
 	Point();
 	Point(double x, double y, double z);
@@ -56,12 +53,8 @@ public:
 	double operator*(const Point &p) const;
 	bool operator==(const Point &p) const;
 	const Point operator*(double w) const;
-	const Point operator+(const Vector &v) const;
-	const Point operator-(const Vector &v) const;
 private:
-	double _x;
-	double _y;
-	double _z;
+	double _data[];
 };
 
 #endif /* POINT_H_ */

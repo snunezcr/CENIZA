@@ -38,7 +38,6 @@
 #define MATRIX_H_
 
 #include <Point.h>
-#include <Vector.h>
 
 class Matrix {
 public:
@@ -51,7 +50,6 @@ public:
 	const Matrix operator-(const Matrix &m) const;
 	const Matrix operator*(const Matrix &m) const;
 	const Point operator*(const Point &p) const;
-	const Vector operator*(const Vector &v) const;
 	const Matrix operator*(double d) const;
 	double& operator() (unsigned int row, unsigned int col);
 	double operator() (unsigned int row, unsigned int col) const;

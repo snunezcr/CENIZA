@@ -104,12 +104,3 @@ const Point Point::operator*(double w) const {
 	return q;
 }
 
-const Point Point::operator+(const Vector &v) const {
-	Point q(_x + v._x, _y + v._y, _z + v._z);
-	return q;
-}
-
-const Point Point::operator-(const Vector &v) const {
-	Point q(_x + v._x, _y + v._y, _z + v._z);
-	return q;
-}
