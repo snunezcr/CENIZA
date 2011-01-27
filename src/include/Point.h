@@ -37,6 +37,13 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+// This needs an improvement in a later version, does not affect functional
+// properties of the software, only its semantics for code readers.
+#define COORDS_3D 	3
+#define COORD_X 	0
+#define COORD_Y 	1
+#define COORD_Z		2
+
 class Point {
 public:
 	Point();
@@ -45,6 +52,7 @@ public:
 	double getX() const;
 	double getY() const;
 	double getZ() const;
+	const double *getVector() const;
 	~Point();
 	Point operator=(const Point &p);
 	const Point operator+(const Point &p) const;
@@ -54,7 +62,7 @@ public:
 	bool operator==(const Point &p) const;
 	const Point operator*(double w) const;
 private:
-	double _data[];
+	double _data[COORDS_3D];
 };
 
 #endif /* POINT_H_ */

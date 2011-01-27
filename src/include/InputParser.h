@@ -41,7 +41,6 @@
 #include <map>
 #include <set>
 #include <Point.h>
-#include <Vector.h>
 #include <string>
 
 using namespace std;
@@ -58,7 +57,6 @@ public:
 	double loadDouble(const string &name, double defval) const;
 	const string &loadString(const string &name, const string &defval) const;
 	long loadInt(const string &name, long defval) const;
-	Vector loadVector(const string &name, const Vector &defval) const;
 	Point loadPoint(const string &name, const Point &defval) const;
 	int setSection(const string &s);
 private:

@@ -245,25 +245,6 @@ long InputParser::loadInt(const string &name, long defval) const {
 		return defval;
 }
 
-Vector InputParser::loadVector(const string &name, const Vector &defval) const {
-	double x, y, z;
-	static string vectorName;
-	vectorName.assign(_localSection).append(name);
-	VariableSet::const_iterator i =
-			static_cast<VariableSet *>((VariableSet *)vars)->find(vectorName);
-	if (i != ((VariableSet *)vars)->end()) {
-		int readup = sscanf(i->second.c_str(), "%lf, %lf, %lf", &x, &y, &z);
-		Vector v(x, y, z);
-
-		if (readup != 3)
-		return defval;
-
-		return v;
-	} else {
-		return defval;
-	}
-}
-
 Point InputParser::loadPoint(const string &name, const Point &defval) const {
 	double x, y, z;
 	static string pointName;

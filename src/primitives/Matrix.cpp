@@ -44,8 +44,8 @@ Matrix::Matrix() {
 	_cols = 3;
 	_data = new double[_rows * _cols];
 
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			_data[ i * _cols + j] = 0;
 }
 
@@ -59,8 +59,8 @@ Matrix::Matrix(unsigned int r, unsigned int c) {
 	}
 	_data = new double[_rows * _cols];
 
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			_data[ i * _cols + j] = 0;
 }
 
@@ -73,10 +73,10 @@ Matrix::Matrix(const Matrix &m) {
 }
 
 Matrix::~Matrix() {
-	if (_data != NULL)
+	if (_data != NULL) {
 		delete _data;
-
-	_data == NULL;
+		_data = NULL;
+	}
 }
 
 Matrix Matrix::operator=(const Matrix &m) {
@@ -88,6 +88,8 @@ Matrix Matrix::operator=(const Matrix &m) {
 
 	_data = new double[_rows * _cols];
 	memcpy(_data, m._data, _rows * _cols * sizeof(double));
+
+	return *this;
 }
 
 const Matrix Matrix::operator+(const Matrix &m) const {
@@ -122,8 +124,8 @@ const Matrix Matrix::operator*(const Matrix &m) const {
 	for (unsigned int i = 0; i < _rows; i++)
 			for (unsigned int j = 0; j < m._cols; j++)
 				for (unsigned int k = 0; k < m._rows; k++)
-					n._data[ i * _cols + j] +=
-							_data[ i * _cols + k] * m._data[ k * _cols + j];
+					n._data[i * _cols + j] +=
+							_data[i * _cols + k] * m._data[ k * _cols + j];
 
 	return n;
 }
@@ -133,27 +135,21 @@ const Point Matrix::operator*(const Point &p) const {
 	if ( (_rows != 3 ) || (_cols != 3 ) )
 		return *(new Point(0, 0, 0));
 
-	Point p1 (_data[0], _data[1], _data[2]);
-	Point p2 (_data[3], _data[4], _data[5]);
-	Point p3 (_data[6], _data[7], _data[8]);
+	// This modification allows OpenMP to optimize each use of the matrix
+	// multiplication algorithm
+	const double *data = p.getVector();
+	double prod[_cols];
 
-	Point q(p1 * p, p2 * p, p3 * p);
+	for (unsigned int j = 0; j < _cols; j++)
+		prod[j] = 0;
+
+	for (unsigned int i = 0; i < _rows; i++)
+			for (unsigned int j = 0; j < _cols; j++)
+				prod[i] += data[j] * _data[i * _cols + j];
+
+	Point q(prod[0], prod[1], prod[2]);
 
 	return q;
-}
-
-const Vector Matrix::operator*(const Vector &v) const {
-	// This operation assumes a 3x3 matrix
-	if ( (_rows != 3 ) || (_cols != 3 ) )
-		return *(new Vector(0, 0, 0));
-
-	Vector v1 (_data[0], _data[1], _data[2]);
-	Vector v2 (_data[3], _data[4], _data[5]);
-	Vector v3 (_data[6], _data[7], _data[8]);
-
-	Vector w(v1 * v, v2 * v, v3 * v);
-
-	return w;
 }
 
 const Matrix Matrix::operator*(double d) const {
@@ -224,8 +220,8 @@ const Matrix Matrix::inv() const {
 	n(2,2) = t(0, 0)*t(1, 1) - t(1, 0)*t(0, 1);
 
 	// Multiply by determinant and change sign
-	for (int i = 0; i < _rows; i++)
-		for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+		for (unsigned int j = 0; j < _cols; j++)
 			if ((i + j)% 2 == 0)
 				n._data[i * _cols + j] *= 1/d;
 			else
@@ -238,8 +234,8 @@ const Matrix Matrix::transp() const {
 	// Reuse a copy of itself
 	Matrix n(_cols, _rows);
 
-	for (int i = 0; i < _rows; i++)
-			for (int j = 0; j < _cols; j++)
+	for (unsigned int i = 0; i < _rows; i++)
+			for (unsigned int j = 0; j < _cols; j++)
 				n._data[j * _rows + i] = _data[i * _cols + j];
 
 	return n;

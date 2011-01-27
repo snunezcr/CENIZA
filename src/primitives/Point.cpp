@@ -36,18 +36,22 @@
 
 #include <Point.h>
 
-Point::Point(): _x(0), _y(0), _z(0) {
-
+Point::Point() {
+	_data[COORD_X] = 0;
+	_data[COORD_Y] = 0;
+	_data[COORD_Z] = 0;
 }
 
-Point::Point(double x, double y, double z): _x(x), _y(y), _z(z) {
-
+Point::Point(double x, double y, double z) {
+	_data[COORD_X] = x;
+	_data[COORD_Y] = y;
+	_data[COORD_Z] = z;
 }
 
 Point::Point(const Point &p) {
-	_x = p._x;
-	_y = p._y;
-	_z = p._z;
+	_data[COORD_X] = p._data[COORD_X];
+	_data[COORD_Y] = p._data[COORD_Y];
+	_data[COORD_Z] = p._data[COORD_Z];
 }
 
 Point::~Point() {
@@ -55,52 +59,68 @@ Point::~Point() {
 }
 
 double Point::getX() const {
-	return _x;
+	return _data[COORD_X];
 }
 double Point::getY() const {
-	return _y;
+	return _data[COORD_Y];
 }
 
 double Point::getZ() const {
-	return _z;
+	return _data[COORD_Z];
+}
+
+const double *Point::getVector() const {
+	return _data;
 }
 
 Point Point::operator=(const Point &p) {
-	_x = p._x;
-	_y = p._y;
-	_z = p._z;
+	if (&p != this) {
+		_data[COORD_X] = p._data[COORD_X];
+		_data[COORD_Y] = p._data[COORD_Y];
+		_data[COORD_Z] = p._data[COORD_Z];
+	}
 
 	return *this;
 }
 
 const Point Point::operator+(const Point &p) const {
-	Point q(_x + p._x, _y + p._y, _z + p._z);
+	Point q(_data[COORD_X] + p._data[COORD_X],
+			_data[COORD_Y] + p._data[COORD_Y],
+			_data[COORD_Z] + p._data[COORD_Z]);
 	return q;
 }
 
 const Point Point::operator-(const Point &p) const {
-	Point q(_x - p._x, _y - p._y, _z - p._z);
+	Point q(_data[COORD_X] - p._data[COORD_X],
+			_data[COORD_Y] - p._data[COORD_Y],
+			_data[COORD_Z] - p._data[COORD_Z]);
 	return q;
 }
 
 double Point::operator*(const Point &p) const {
-	return _x * p._x + _y * p._y + _z - p._z;
+	return _data[COORD_X] * p._data[COORD_X] +
+			_data[COORD_Y] * p._data[COORD_Y] +
+			_data[COORD_Z] - p._data[COORD_Z];
 }
 
 const Point Point::operator^(const Point &p) const {
-	Point q(_y * p._z - _z * p._y, _z * p._x - _x * p._z, _x * p._y - _y * p._x);
+	Point q(_data[COORD_Y] * p._data[COORD_Z] - _data[COORD_Z] * p._data[COORD_Y],
+			_data[COORD_Z] * p._data[COORD_X] - _data[COORD_X] * p._data[COORD_Z],
+			_data[COORD_X] * p._data[COORD_Y] - _data[COORD_Y] * p._data[COORD_X]);
 	return q;
 }
 
 bool Point::operator==(const Point &p) const {
-	if (_x == p._x && _y == p._y && _z == p._z)
+	if (_data[COORD_X] == p._data[COORD_X] &&
+			_data[COORD_Y] == p._data[COORD_Y] &&
+			_data[COORD_Z] == p._data[COORD_Z])
 		return true;
 	else
 		return false;
 }
 
 const Point Point::operator*(double w) const {
-	Point q(_x * w, _y * w, _z * w);
+	Point q(_data[COORD_X] * w, _data[COORD_Y] * w, _data[COORD_Z] * w);
 	return q;
 }
 

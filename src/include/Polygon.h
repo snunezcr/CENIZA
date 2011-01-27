@@ -38,7 +38,6 @@
 #define POLYGON_H_
 
 #include <Point.h>
-#include <Vector.h>
 #include <Line.h>
 #include <vector>
 
