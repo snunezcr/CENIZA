@@ -67,7 +67,7 @@ string InputParser::preprocess(fstream &input) {
 			case '\r':
 				break;
 			default:
-				tmp.append(*i);
+				tmp.append(*i, 1);
 			}
 		}
 	}
@@ -75,18 +75,18 @@ string InputParser::preprocess(fstream &input) {
 	return tmp;
 }
 
-bool InputParser::precargar(fstream &input) {
+bool InputParser::preload(fstream &input) {
 	static string buffer;
 	string tmp;
 	int scope = 0;
 	tmp = preprocess(input);
-	iterador i = tmp.inicio();
+	string::iterator i = tmp.begin();
 	string tempName;
 	string tempVal;
 	string currSection;
 
 find_name:
-	if (i == tmp.final())
+	if (i == tmp.end())
 		goto end;
 
 	switch (*i) {
@@ -101,13 +101,13 @@ find_name:
 			goto in_section;
 		break;
 		default:
-		tempName.append(&*i, 1);
+		tempName.append(*i, 1);
 	}
 	i++;
 	goto find_name;
 
 in_section:
-	if (i == tmp.final()) {
+	if (i == tmp.end()) {
 		(static_cast<StringSet *>(secs))->clear();
 		(static_cast<VariableSet *>(vars))->clear();
 		return false;
@@ -131,7 +131,7 @@ in_section:
 	goto in_section;
 
 var_name:
-	if (i == tmp.final()) {
+	if (i == tmp.end()) {
 		(static_cast<StringSet *>(secs))->clear();
 		(static_cast<VariableSet *>(vars))->clear();
 		return false;
@@ -144,7 +144,7 @@ var_name:
 			(static_cast<VariableSet *>(vars))->clear();
 			return false;
 		case '=':
-			if (tempName.vacia()) {
+			if (tempName.empty()) {
 				(static_cast<StringSet *>(secs))->clear();
 				(static_cast<VariableSet *>(vars))->clear();
 			return false;
@@ -152,14 +152,14 @@ var_name:
 			i++;
 			goto var_value;
 		default:
-			tempName.append(&*i, 1);
+			tempName.append(*i, 1);
 		break;
 	}
 	i++;
 	goto var_name;
 
 var_value:
-	if (i == tmp.final()) {
+	if (i == tmp.end()) {
 		(static_cast<StringSet *>(secs))->clear();
 		(static_cast<VariableSet *>(vars))->clear();
 		return false;
@@ -174,13 +174,13 @@ var_value:
 			(static_cast<VariableSet *>(vars))->clear();
 			return false;
 		case ';':
-			if (tempName.vacia()) {
+			if (tempName.empty()) {
 				(static_cast<StringSet *>(secs))->clear();
 				(static_cast<VariableSet *>(vars))->clear();
 				return false;
 			}
 			buffer.assign(currSection);
-			buffer.append('/');
+			buffer.append('/', 1);
 			buffer.append(tempName);
 			(static_cast<VariableSet *>(vars))->insert(VariableSet::value_type(buffer, tempVal));
 			tempName.resize(0);
@@ -188,7 +188,7 @@ var_value:
 			i++;
 			goto in_section;
 		default:
-		tempVal.append(i, 1);
+		tempVal.append(*i, 1);
 		break;
 	}
 	i++;
@@ -216,7 +216,7 @@ double InputParser::loadDouble(const string &name, double defval) const {
 			static_cast<VariableSet *>((VariableSet *)vars)->find(floatName);
 
 	if (i != ((VariableSet *)vars)->end())
-		return atof((*i).second.cString());
+		return atof((*i).second.c_str());
 	else
 		return defval;
 }
@@ -240,19 +240,20 @@ long InputParser::loadInt(const string &name, long defval) const {
 			static_cast<VariableSet *>((VariableSet *)vars)->find(longName);
 
 	if (i != ((VariableSet *)vars)->end())
-		return atol((*i).second.cString());
+		return atol((*i).second.c_str());
 	else
 		return defval;
 }
 
 Vector InputParser::loadVector(const string &name, const Vector &defval) const {
-	Vector v;
+	double x, y, z;
 	static string vectorName;
 	vectorName.assign(_localSection).append(name);
 	VariableSet::const_iterator i =
 			static_cast<VariableSet *>((VariableSet *)vars)->find(vectorName);
 	if (i != ((VariableSet *)vars)->end()) {
-		int readup = sscanf(i->second.cString(), "%f, %f, %f", &v.x, &v.y, &v.z);
+		int readup = sscanf(i->second.c_str(), "%lf, %lf, %lf", &x, &y, &z);
+		Vector v(x, y, z);
 
 		if (readup != 3)
 		return defval;
@@ -264,13 +265,14 @@ Vector InputParser::loadVector(const string &name, const Vector &defval) const {
 }
 
 Point InputParser::loadPoint(const string &name, const Point &defval) const {
-	Point p;
+	double x, y, z;
 	static string pointName;
 	pointName.assign(_localSection).append(name);
 	VariableSet::const_iterator i =
 	static_cast<VariableSet *>((VariableSet *)vars)->find(pointName);
 	if (i != ((VariableSet *)vars)->end()) {
-		int readup = sscanf(i->second.cString(), "%f, %f, %f", &p.x, &p.y, &p.z);
+		int readup = sscanf(i->second.c_str(), "%lf, %lf, %lf", &x, &y, &z);
+		Point p(x, y, z);
 
 		if (readup != 3)
 			return defval;
@@ -289,12 +291,12 @@ int InputParser::setSection(const string &s) {
 		fstream input;
 		bool result;
 
-		input.open(_fileName.cString(), ios::in);
+		input.open(_fileName.c_str(), ios::in);
 
 		if (input.is_open() == 0) {
 			result = false;
 		} else {
-			result = precargar(input);
+			result = preload(input);
 			input.close();
 		}
 
@@ -315,7 +317,7 @@ int InputParser::setSection(const string &s) {
 	StringSet::const_iterator i = ((StringSet *) secs)->find(s);
 
 	if (i != ((StringSet *) secs)->end()) {
-		_localSection.assign(s).append('/');
+		_localSection.assign(s).append('/', 1);
 		return 0;
 	} else {
 		_localSection.resize(0);

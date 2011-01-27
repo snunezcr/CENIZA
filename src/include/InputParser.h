@@ -46,8 +46,8 @@
 
 using namespace std;
 
-typedef std::map<String,String> VariableSet;
-typedef std::set<String> StringSet;
+typedef std::map<string,string> VariableSet;
+typedef std::set<string> StringSet;
 
 class InputParser {
 public:
@@ -56,7 +56,7 @@ public:
 	~InputParser();
 	bool loadBool(const string &name, bool defval) const;
 	double loadDouble(const string &name, double defval) const;
-	const string &loadString(const string &name, const String &defval) const;
+	const string &loadString(const string &name, const string &defval) const;
 	long loadInt(const string &name, long defval) const;
 	Vector loadVector(const string &name, const Vector &defval) const;
 	Point loadPoint(const string &name, const Point &defval) const;
