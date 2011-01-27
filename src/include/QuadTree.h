@@ -44,7 +44,7 @@ public:
 	QuadTree();
 	void add(vector<T> elements);
 	void add(T element);
-	S interpolate(double x, double y)
+	S interpolate(double x, double y);
 private:
 	// An inner class will handle the quadtree structure
 	// TODO
