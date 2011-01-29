@@ -37,23 +37,27 @@
 #ifndef GRID_H_
 #define GRID_H_
 
+#include <Boundary.h>
 #include <Location.h>
 #include <vector>
 
+using namespace std;
+
 template <typename D> class Grid {
 public:
-	Grid();
+	Grid(Boundary bounds);
 	~Grid();
-	virtual bool empty();
-	virtual bool member(Location<D> location);
-	virtual int size();
-	virtual void add(Location<D> location);
-	virtual void addBulk(vector< Location<D> > locations);
-	virtual Location<D> & next();
-	virtual void refine();
+	bool empty();
+	bool member(Location<D> location);
+	int size();
+	void add(Location<D> location);
+	void add(vector< Location<D> > locations);
+	Location<D> & next();
+	void refine();
 	bool changed();
 protected:
 	bool _changed;
+	Boundary _bounds;
 };
 
 #endif /* GRID_H_ */

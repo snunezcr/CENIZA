@@ -41,10 +41,11 @@
 
 class Field {
 public:
-	Field(Boundary *b);
+	Field(Boundary &b);
 	~Field();
+	void add(Point &p);
 private:
-	Boundary *_bounds;
+	Boundary _bounds;
 };
 
 #endif /* FIELD_H_ */

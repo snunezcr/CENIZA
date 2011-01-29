@@ -44,14 +44,16 @@
 
 class DEM {
 public:
-	DEM(const char *filename);
+	DEM(const char *filename, bool enabled);
 	~DEM();
 	void load();
+	bool enabled();
 	Boundary getBounds() const;
 	vector<Point> sample(vector<Point> locations);
 private:
 	char *_filename;
 	QuadTree<Polygon, Point> _triangles;
+	bool _enabled;
 };
 
 #endif /* DEM_H_ */

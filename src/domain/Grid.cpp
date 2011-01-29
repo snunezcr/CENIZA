@@ -36,39 +36,40 @@
 
 #include <Grid.h>
 
-template <typename D> Grid<D>::Grid() {
+template <typename D> Grid<D>::Grid(Boundary bounds) {
 	_changed = false;
+	_bounds = bounds;
 }
 
 template <typename D> Grid<D>::~Grid() {
 
 }
 
-template <typename D> virtual bool Grid<D>::empty() {
+template <typename D> bool Grid<D>::empty() {
 	return true;
 }
 
-template <typename D> virtual bool Grid<D>::member(Location<D> location) {
+template <typename D> bool Grid<D>::member(Location<D> location) {
 	return false;
 }
 
-template <typename D> virtual int Grid<D>::size() {
+template <typename D> int Grid<D>::size() {
 	return 0;
 }
 
-template <typename D> virtual void Grid<D>::add(Location<D> location) {
+template <typename D> void Grid<D>::add(Location<D> location) {
 
 }
 
-template <typename D> virtual void Grid<D>::addBulk(vector< Location<D> > locations) {
+template <typename D> void Grid<D>::add(vector< Location<D> > locations) {
 
 }
 
-template <typename D> virtual Location<D> & Grid<D>::next() {
+template <typename D> Location<D> & Grid<D>::next() {
 	return *(new Location<D>());
 }
 
-template <typename D> virtual void Grid<D>::refine() {
+template <typename D> void Grid<D>::refine() {
 
 }
 
