@@ -34,32 +34,20 @@
  *
  */
 
-#include <Parameter.h>
+#ifndef LOCATION_H_
+#define LOCATION_H_
 
-Parameter::Parameter(string name, int data) {
-	_type = PARAM_INT;
-	_data.data_int = data;
-	_name = name;
-}
+#include <Point.h>
 
-Parameter::Parameter(string name, double data) {
-	_type = PARAM_DOUBLE;
-	_data.data_double = data;
-	_name = name;
-}
+template <typename D> class Location {
+public:
+	Location(Point &p, D &attributes);
+	~Location();
+	Point &getPoint() const;
+	D &getAttributes() const;
+private:
+	Point _coords;
+	D _attributes;
+};
 
-Parameter::~Parameter() {
-
-}
-
-int Parameter::getType() const {
-	return _type;
-}
-
-union par_data Parameter::getData() const {
-	return _data;
-}
-
-const string Parameter::getName() const {
-	return _name;
-}
+#endif /* LOCATION_H_ */
