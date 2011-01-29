@@ -36,6 +36,10 @@
 
 #include <Location.h>
 
+template <typename D> Location<D>::Location() {
+
+}
+
 template <typename D> Location<D>::Location(Point &p, D &attributes) {
 	_coords = p;
 	_attributes = attributes;

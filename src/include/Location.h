@@ -41,6 +41,7 @@
 
 template <typename D> class Location {
 public:
+	Location();
 	Location(Point &p, D &attributes);
 	~Location();
 	Point &getPoint() const;
