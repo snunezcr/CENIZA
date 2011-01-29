@@ -34,37 +34,31 @@
  *
  */
 
-#ifndef PARAMETER_H_
-#define PARAMETER_H_
+#include <Parameter.h>
 
-#include <Constants.h>
-#include <string>
+Parameter::Parameter(string name, int data) {
+	_type = PARAM_INT;
+	_data.data_int = data;
+	_name = name;
+}
 
-using namespace std;
+Parameter::Parameter(string name, double data) {
+	_type = PARAM_DOUBLE;
+	_data.data_double = data;
+	_name = name;
+}
 
-enum {
-	PARAM_INT,
-	PARAM_DOUBLE
-};
+Parameter::~Parameter() {
+}
 
-union par_data {
-	int data_int;
-	double data_double;
-};
+int Parameter::getType() const {
+	return _type;
+}
 
-class Parameter {
-public:
-	Parameter(string name, int data);
-	Parameter(string name, double data);
-	~Parameter();
-	int getType() const;
-	union par_data getData() const;
-	const string getName() const;
-private:
-	string _name;
-	int _type;
-	union par_data _data;
-};
+union par_data Parameter::getData() const {
+	return _data;
+}
 
-#endif /* PARAMETER_H_ */
-
+const string Parameter::getName() const {
+	return _name;
+}
