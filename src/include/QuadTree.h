@@ -44,11 +44,13 @@ public:
 	QuadTree();
 	void add(vector<T> elements);
 	void add(T element);
-	S interpolate(double x, double y);
+	Boundary getBounds() const;
+	S interpolate(double x, double y) const;
 private:
 	// An inner class will handle the quadtree structure
 	// TODO
 	int _elements;
+	Boundary _bounds;
 };
 
 #endif /* QUADTREE_H_ */

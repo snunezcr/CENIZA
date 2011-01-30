@@ -36,9 +36,10 @@
 
 #include <Grid.h>
 
-template <typename D> Grid<D>::Grid(Boundary bounds) {
+template <typename D> Grid<D>::Grid(Boundary bounds, DEM *elevations) {
 	_changed = false;
 	_bounds = bounds;
+	_elevations = elevations;
 }
 
 template <typename D> Grid<D>::~Grid() {

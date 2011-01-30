@@ -34,27 +34,42 @@
  *
  */
 
-#ifndef DEM_H_
-#define DEM_H_
+#include <DEM.h>
 
-#include <Boundary.h>
-#include <Polygon.h>
-#include <QuadTree.h>
-#include <vector>
+DEM::DEM(const char *filename, bool enabled) {
+	_filename = filename;
+	_enabled  = enabled;
+}
 
-class DEM {
-public:
-	DEM(const char *filename, bool enabled);
-	~DEM();
-	void load();
-	bool enabled();
-	Boundary getBounds() const;
-	Point sample(Point location) const;
-	vector<Point> sample(vector<Point> locations) const;
-private:
-	const char *_filename;
-	QuadTree<Polygon, Point> _triangles;
-	bool _enabled;
-};
 
-#endif /* DEM_H_ */
+DEM::~DEM() {
+
+}
+
+void DEM::load() {
+	if (! _enabled)
+		return;
+
+	// TODO: Load a DEM file with appropriate format in Polygon Objects
+}
+
+bool DEM::enabled() {
+	return _enabled;
+}
+
+Boundary DEM::getBounds() const {
+	return _triangles.getBounds();
+}
+Point DEM::sample(Point location) const {
+	if (! _enabled)
+		return *(new Point(location.getX(), location.getY(), 0));
+
+	// Todo: interpolate with quadtree
+}
+
+vector<Point> DEM::sample(vector<Point> locations) const {
+	vector<Point> points;
+
+	for (unsigned int i = 0; i < locations.size(); i++)
+		points.push_back(sample(locations.at(i)));
+}

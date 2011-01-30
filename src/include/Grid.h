@@ -39,13 +39,14 @@
 
 #include <Boundary.h>
 #include <Location.h>
+#include <DEM.h>
 #include <vector>
 
 using namespace std;
 
 template <typename D> class Grid {
 public:
-	Grid(Boundary bounds);
+	Grid(Boundary bounds, DEM *elevations);
 	~Grid();
 	bool empty();
 	bool member(Location<D> location);
@@ -58,6 +59,7 @@ public:
 protected:
 	bool _changed;
 	Boundary _bounds;
+	DEM *_elevations;
 };
 
 #endif /* GRID_H_ */

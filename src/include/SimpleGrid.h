@@ -41,7 +41,7 @@
 
 template <typename D> class SimpleGrid: public Grid {
 public:
-	SimpleGrid(Boundary bounds, int m, int n);
+	SimpleGrid(Boundary bounds, DEM *elevations, int m, int n);
 	~SimpleGrid();
 	bool empty();
 	bool member(Location<D> location);
