@@ -58,13 +58,17 @@ bool DEM::enabled() {
 }
 
 Boundary DEM::getBounds() const {
-	return _triangles.getBounds();
+//	return _triangles.getBounds();
 }
+
 Point DEM::sample(Point location) const {
+	Point interpolated;
+
 	if (! _enabled)
 		return *(new Point(location.getX(), location.getY(), 0));
 
 	// Todo: interpolate with quadtree
+	return interpolated;
 }
 
 vector<Point> DEM::sample(vector<Point> locations) const {
@@ -72,4 +76,6 @@ vector<Point> DEM::sample(vector<Point> locations) const {
 
 	for (unsigned int i = 0; i < locations.size(); i++)
 		points.push_back(sample(locations.at(i)));
+
+	return points;
 }

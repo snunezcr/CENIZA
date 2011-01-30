@@ -49,6 +49,10 @@ template <typename D> Location<D>::~Location() {
 
 }
 
+template <typename D> bool Location<D>::operator==(Location<D> location) {
+	return _coords == location._coords;
+}
+
 template <typename D> Point & Location<D>::getPoint() const {
 	return _coords;
 }

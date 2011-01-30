@@ -39,23 +39,26 @@
 
 #include <Grid.h>
 
-template <typename D> class SimpleGrid: public Grid {
+template <typename D> class SimpleGrid: public Grid<D> {
 public:
 	SimpleGrid(Boundary bounds, DEM *elevations, int m, int n);
 	~SimpleGrid();
-	bool empty();
-	bool member(Location<D> location);
-	int size();
+	bool empty() const;
+	bool member(Location<D> location) const;
+	int size() const;
 	void add(Location<D> location);
 	void add(vector< Location<D> > locations);
-	Location<D> & next();
+	Location<D> & next() const;
 	void refine();
-	bool changed();
+	bool changed() const;
 private:
-	double _delta;
+	double _deltaX;
+	double _deltaY;
 	int _m;
 	int _n;
 	vector< Location<D> > _locations;
+	// This is a circular implementation of next, starting at 0
+	int _current;
 };
 
 #endif /* SIMPLEGRID_H_ */

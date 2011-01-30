@@ -46,15 +46,15 @@ template <typename D> Grid<D>::~Grid() {
 
 }
 
-template <typename D> bool Grid<D>::empty() {
+template <typename D> bool Grid<D>::empty() const {
 	return true;
 }
 
-template <typename D> bool Grid<D>::member(Location<D> location) {
+template <typename D> bool Grid<D>::member(Location<D> location) const {
 	return false;
 }
 
-template <typename D> int Grid<D>::size() {
+template <typename D> int Grid<D>::size() const {
 	return 0;
 }
 
@@ -66,7 +66,7 @@ template <typename D> void Grid<D>::add(vector< Location<D> > locations) {
 
 }
 
-template <typename D> Location<D> & Grid<D>::next() {
+template <typename D> Location<D> & Grid<D>::next() const {
 	return *(new Location<D>());
 }
 
@@ -74,6 +74,6 @@ template <typename D> void Grid<D>::refine() {
 
 }
 
-template <typename D> bool Grid<D>::changed() {
+template <typename D> bool Grid<D>::changed() const {
 	return false;
 }

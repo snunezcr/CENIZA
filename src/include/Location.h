@@ -44,6 +44,7 @@ public:
 	Location();
 	Location(Point &p, D &attributes);
 	~Location();
+	bool operator==(Location<D> location);
 	Point &getPoint() const;
 	D &getAttributes() const;
 private:
