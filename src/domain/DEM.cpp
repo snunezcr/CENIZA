@@ -54,7 +54,7 @@ void DEM::load() {
 	// TODO: Load a DEM file with appropriate format in Polygon Objects
 }
 
-bool DEM::enabled() {
+bool DEM::enabled() const {
 	return _enabled;
 }
 

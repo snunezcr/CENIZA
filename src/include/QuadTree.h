@@ -39,6 +39,7 @@
 
 #include <Boundary.h>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -57,7 +58,7 @@ private:
 	public:
 		QuadTreeNode(Boundary bounds);
 		~QuadTreeNode();
-		void add(T element, Boundary bounds);
+		int add(T element, Boundary bounds);
 		S interpolate(double x, double y) const;
 	private:
 		// Node data
@@ -78,5 +79,82 @@ private:
 	Boundary _bounds;
 	int _elements;
 };
+
+template <class T, class S>
+	QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary bounds) {
+	_data = NULL;
+	_bounds = bounds;
+	_halfX = (_bounds.getURB().getX() - _bounds.getLLF().getX()) / 2;
+	_halfY = (_bounds.getURB().getY() - _bounds.getLLF().getY()) / 2;
+	_expanded = false;
+	_lowerLeft = NULL;
+	_lowerRight = NULL;
+	_upperLeft = NULL;
+	_upperRight = NULL;
+}
+
+template <class T, class S> QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
+	if (_lowerLeft != NULL) {
+		delete _lowerLeft;
+		_lowerLeft = NULL;
+	}
+	if (_lowerRight != NULL) {
+		delete _lowerRight;
+		_lowerRight = NULL;
+	}
+	if (_upperLeft != NULL) {
+		delete _upperLeft;
+		_upperLeft = NULL;
+	}
+	if (_upperRight != NULL) {
+		delete _upperRight;
+		_upperRight = NULL;
+	}
+	if (_data != NULL) {
+		delete _data;
+		_data = NULL;
+	}
+}
+
+template <class T, class S>
+int QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
+	// First case: we are at the insertion point
+	// Status: (not expanded, _data == NULL)
+	// Action: copy incoming data to node
+	if ( (! _expanded) && (_data == NULL)) {
+		_data = new T(element);
+		return 1;
+	}
+	// Second case: we are at an insertion point but it is occupied and not expanded
+	// Status: no child available
+}
+
+template <class T, class S> QuadTree<T,S>::QuadTree(Boundary bounds) {
+	_elements = 0;
+	_root = new QuadTreeNode(bounds);
+	_bounds = bounds;
+}
+
+template <class T, class S> QuadTree<T,S>::~QuadTree() {
+	if (_root != NULL) {
+		delete _root;
+		_root = NULL;
+	}
+}
+
+template <class T, class S> void QuadTree<T,S>::add(T element, Boundary objBounds) {
+	if (_root.add(element, objBounds) == 1)
+		_elements++;
+
+	return;
+}
+
+template <class T, class S> Boundary QuadTree<T,S>::getBounds() const {
+	return _bounds;
+}
+
+template <class T, class S> S QuadTree<T,S>::interpolate(double x, double y) const {
+	return _root.interpolate(x, y);
+}
 
 #endif /* QUADTREE_H_ */

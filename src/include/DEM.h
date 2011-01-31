@@ -47,7 +47,7 @@ public:
 	DEM(const char *filename, bool enabled, Boundary bounds);
 	~DEM();
 	void load();
-	bool enabled();
+	bool enabled() const;
 	Boundary getBounds() const;
 	Point sample(Point location) const;
 	vector<Point> sample(vector<Point> locations) const;
