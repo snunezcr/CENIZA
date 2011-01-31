@@ -60,7 +60,7 @@ bool Line::operator==(const Line &l) const {
 		return false;
 }
 
-Line Line::operator=(const Line &l) {
+Line & Line::operator=(const Line &l) {
 	if (&l != this) {
 		_start = l._start;
 		_end = l._end;

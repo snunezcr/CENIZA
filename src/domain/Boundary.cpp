@@ -43,6 +43,9 @@
 
 #include <Boundary.h>
 
+Boundary::Boundary() : _llf(0, 0, 0), _urb(0, 0, 0) {
+}
+
 Boundary::Boundary(Point &llf, Point &urb) {
 	_llf = llf;
 	_urb = urb;
@@ -57,6 +60,15 @@ Boundary::Boundary(const Boundary &b) {
 
 Boundary::~Boundary() {
 	return;
+}
+
+Boundary & Boundary::operator=(Boundary bounds) {
+	if (&bounds != this) {
+		_llf = bounds._llf;
+		_urb = bounds._urb;
+	}
+
+	return *this;
 }
 
 const Point Boundary::getLLF() const {

@@ -54,7 +54,7 @@ public:
 	double getZ() const;
 	const double *getVector() const;
 	~Point();
-	Point operator=(const Point &p);
+	Point &operator=(const Point &p);
 	const Point operator+(const Point &p) const;
 	const Point operator-(const Point &p) const;
 	const Point operator^(const Point &p) const;	// Operator for cross product

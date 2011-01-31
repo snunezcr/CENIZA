@@ -44,7 +44,7 @@ public:
 	Line(const Point &start, const Point &end);
 	Line(const Line &l);
 	~Line();
-	Line operator=(const Line &l);
+	Line &operator=(const Line &l);
 	bool operator==(const Line &l) const;
 	const Line operator+(const Point &p) const;
 	const Line operator-(const Point &p) const;

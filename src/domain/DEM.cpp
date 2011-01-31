@@ -36,7 +36,7 @@
 
 #include <DEM.h>
 
-DEM::DEM(const char *filename, bool enabled) {
+DEM::DEM(const char *filename, bool enabled, Boundary bounds) : _triangles(bounds) {
 	_filename = filename;
 	_enabled  = enabled;
 }
@@ -58,7 +58,7 @@ bool DEM::enabled() {
 }
 
 Boundary DEM::getBounds() const {
-//	return _triangles.getBounds();
+	return _bounds;
 }
 
 Point DEM::sample(Point location) const {

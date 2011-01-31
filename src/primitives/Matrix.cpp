@@ -79,7 +79,7 @@ Matrix::~Matrix() {
 	}
 }
 
-Matrix Matrix::operator=(const Matrix &m) {
+Matrix & Matrix::operator=(const Matrix &m) {
 	_rows = m._rows;
 	_cols = m._cols;
 

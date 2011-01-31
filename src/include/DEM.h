@@ -44,7 +44,7 @@
 
 class DEM {
 public:
-	DEM(const char *filename, bool enabled);
+	DEM(const char *filename, bool enabled, Boundary bounds);
 	~DEM();
 	void load();
 	bool enabled();
@@ -52,8 +52,9 @@ public:
 	Point sample(Point location) const;
 	vector<Point> sample(vector<Point> locations) const;
 private:
-	const char *_filename;
 	QuadTree<Polygon, Point> _triangles;
+	Boundary _bounds;
+	const char *_filename;
 	bool _enabled;
 };
 

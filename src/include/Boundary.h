@@ -47,9 +47,11 @@
 
 class Boundary {
 public:
+	Boundary();
 	Boundary(Point &llf, Point &urb);
 	Boundary(const Boundary &b);
 	~Boundary();
+	Boundary &operator=(Boundary bounds);
 	const Point getLLF() const;
 	const Point getULF() const;
 	const Point getLRF() const;

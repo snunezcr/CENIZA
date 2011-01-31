@@ -73,7 +73,7 @@ const double *Point::getVector() const {
 	return _data;
 }
 
-Point Point::operator=(const Point &p) {
+Point &Point::operator=(const Point &p) {
 	if (&p != this) {
 		_data[COORD_X] = p._data[COORD_X];
 		_data[COORD_Y] = p._data[COORD_Y];

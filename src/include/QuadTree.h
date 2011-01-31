@@ -73,7 +73,7 @@ private:
 	};
 
 
-	QuadTreeNode *root;
+	QuadTreeNode *_root;
 	Boundary _bounds;
 	int _elements;
 };

@@ -45,7 +45,7 @@ public:
 	Matrix(unsigned int r, unsigned int c);
 	Matrix(const Matrix &m);
 	~Matrix();
-	Matrix operator=(const Matrix &m);
+	Matrix & operator=(const Matrix &m);
 	const Matrix operator+(const Matrix &m) const;
 	const Matrix operator-(const Matrix &m) const;
 	const Matrix operator*(const Matrix &m) const;
