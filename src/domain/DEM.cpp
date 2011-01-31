@@ -36,14 +36,15 @@
 
 #include <DEM.h>
 
-DEM::DEM(const char *filename, bool enabled, Boundary bounds) : _triangles(bounds) {
+DEM::DEM(const char *filename, bool enabled, Boundary bounds) :
+	_triangles(bounds) {
 	_filename = filename;
 	_enabled  = enabled;
 }
 
 
 DEM::~DEM() {
-
+	delete [] _filename;
 }
 
 void DEM::load() {

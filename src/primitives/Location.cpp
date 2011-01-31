@@ -45,6 +45,13 @@ template <typename D> Location<D>::Location(Point &p, D &attributes) {
 	_attributes = attributes;
 }
 
+template <typename D> Location<D>::Location(const Location<D> &location) {
+	if (&location != this) {
+		_coords = location._coords;
+		_attributes = location._attributes;
+	}
+}
+
 template <typename D> Location<D>::~Location() {
 
 }

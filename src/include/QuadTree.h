@@ -40,11 +40,12 @@
 #include <Boundary.h>
 #include <vector>
 
+using namespace std;
+
 template <class T, class S> class QuadTree {
 public:
 	QuadTree(Boundary bounds);
 	~QuadTree();
-	void add(vector<T> elements);
 	// This is ugly, but required in order to preserve a homogeneous
 	// interface for the programmer regardless of class definitions
 	void add(T element, Boundary objBounds);
@@ -66,10 +67,10 @@ private:
 		double _halfY;
 		bool _expanded;		// We need to keep track of node expansion
 		// Pointers to children nodes
-		QuadTreeNode *lowerLeft;
-		QuadTreeNode *lowerRight;
-		QuadTreeNode *upperLeft;
-		QuadTreeNode *upperRight;
+		QuadTreeNode *_lowerLeft;
+		QuadTreeNode *_lowerRight;
+		QuadTreeNode *_upperLeft;
+		QuadTreeNode *_upperRight;
 	};
 
 

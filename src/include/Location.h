@@ -43,6 +43,7 @@ template <typename D> class Location {
 public:
 	Location();
 	Location(Point &p, D &attributes);
+	Location(const Location<D> &location);
 	~Location();
 	bool operator==(Location<D> location);
 	Point &getPoint() const;
