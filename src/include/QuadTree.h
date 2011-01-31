@@ -37,18 +37,41 @@
 #ifndef QUADTREE_H_
 #define QUADTREE_H_
 
+#include <Boundary.h>
 #include <vector>
 
 template <class T, class S> class QuadTree {
 public:
-	QuadTree();
+	QuadTree(Boundary bounds);
+	~QuadTree();
 	void add(vector<T> elements);
-	void add(T element);
+	// This is ugly, but required in order to preserve a homogeneous
+	// interface for the programmer regardless of class definitions
+	void add(T element, Boundary objBounds);
 	Boundary getBounds() const;
 	S interpolate(double x, double y) const;
 private:
 	// An inner class will handle the quadtree structure
-	// TODO
+	class QuadTreeNode {
+	public:
+		QuadTreeNode(Boundary bounds);
+		~QuadTreeNode();
+		void add(T element, Boundary bounds);
+		S interpolate(double x, double y) const;
+	private:
+		// Node data
+		T *_data;
+		Boundary _bounds;
+		double _halfX;
+		double _halfY;
+		bool _expanded;		// We need to keep track of node expansion
+		// Pointers to children nodes
+		QuadTreeNode *lowerLeft;
+		QuadTreeNode *lowerRight;
+		QuadTreeNode *upperLeft;
+		QuadTreeNode *upperRight;
+	};
+
 	int _elements;
 	Boundary _bounds;
 };
