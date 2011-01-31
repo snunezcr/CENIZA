@@ -72,8 +72,10 @@ private:
 		QuadTreeNode *upperRight;
 	};
 
-	int _elements;
+
+	QuadTreeNode *root;
 	Boundary _bounds;
+	int _elements;
 };
 
 #endif /* QUADTREE_H_ */
