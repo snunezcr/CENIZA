@@ -53,4 +53,36 @@ private:
 	D _attributes;
 };
 
+template <typename D> Location<D>::Location() {
+
+}
+
+template <typename D> Location<D>::Location(Point &p, D &attributes) {
+	_coords = p;
+	_attributes = attributes;
+}
+
+template <typename D> Location<D>::Location(const Location<D> &location) {
+	if (&location != this) {
+		_coords = location._coords;
+		_attributes = location._attributes;
+	}
+}
+
+template <typename D> Location<D>::~Location() {
+
+}
+
+template <typename D> bool Location<D>::operator==(Location<D> location) {
+	return _coords == location._coords;
+}
+
+template <typename D> Point & Location<D>::getPoint() const {
+	return _coords;
+}
+
+template <typename D> D & Location<D>::getAttributes() const {
+	return _attributes;
+}
+
 #endif /* LOCATION_H_ */

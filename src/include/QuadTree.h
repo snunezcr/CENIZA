@@ -126,7 +126,9 @@ int QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 		return 1;
 	}
 	// Second case: we are at an insertion point but it is occupied and not expanded
-	// Status: no child available
+	// Status: no child available, not expanded
+	// Action: make all four, relocate current element (possibly more than one node)
+	//         and insert new one.
 }
 
 template <class T, class S> QuadTree<T,S>::QuadTree(Boundary bounds) {

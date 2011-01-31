@@ -62,4 +62,46 @@ protected:
 	DEM *_elevations;
 };
 
+template <typename D> Grid<D>::Grid(Boundary bounds, DEM *elevations) {
+	_changed = false;
+	_bounds = bounds;
+	_elevations = elevations;
+}
+
+template <typename D> Grid<D>::~Grid() {
+
+}
+
+template <typename D> bool Grid<D>::empty() const {
+	return true;
+}
+
+template <typename D> bool Grid<D>::member(Location<D> location) const {
+	return false;
+}
+
+template <typename D> int Grid<D>::size() const {
+	return 0;
+}
+
+template <typename D> void Grid<D>::add(Location<D> location) {
+
+}
+
+template <typename D> void Grid<D>::add(vector< Location<D> > locations) {
+
+}
+
+template <typename D> Location<D> & Grid<D>::next() const {
+	return *(new Location<D>());
+}
+
+template <typename D> void Grid<D>::refine() {
+
+}
+
+template <typename D> bool Grid<D>::changed() const {
+	return false;
+}
+
 #endif /* GRID_H_ */
