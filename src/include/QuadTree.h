@@ -129,6 +129,7 @@ int QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 	// Status: no child available, not expanded
 	// Action: make all four, relocate current element (possibly more than one node)
 	//         and insert new one.
+	// TODO
 }
 
 template <class T, class S> QuadTree<T,S>::QuadTree(Boundary bounds) {

@@ -48,14 +48,14 @@ template <typename D> class Grid {
 public:
 	Grid(Boundary bounds, DEM *elevations);
 	~Grid();
-	bool empty() const;
-	bool member(Location<D> location) const;
-	int size() const;
-	void add(Location<D> location);
-	void add(vector< Location<D> > locations);
-	Location<D> & next() const;
-	void refine();
-	bool changed() const;
+	virtual bool empty() const;
+	virtual bool member(Location<D> location) const;
+	virtual int size() const;
+	virtual void add(Location<D> location);
+	virtual void add(vector< Location<D> > locations);
+	virtual Location<D> & next() const;
+	virtual void refine();
+	virtual bool changed() const;
 protected:
 	bool _changed;
 	Boundary _bounds;

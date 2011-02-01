@@ -43,14 +43,14 @@ template <typename D> class SimpleGrid: public Grid<D> {
 public:
 	SimpleGrid(Boundary bounds, DEM *elevations, int m, int n);
 	~SimpleGrid();
-	bool empty() const;
-	bool member(Location<D> location) const;
-	int size() const;
-	void add(Location<D> location);
-	void add(vector< Location<D> > locations);
-	Location<D> & next() const;
-	void refine();
-	bool changed() const;
+	virtual bool empty() const;
+	virtual bool member(Location<D> location) const;
+	virtual int size() const;
+	virtual void add(Location<D> location);
+	virtual void add(vector< Location<D> > locations);
+	virtual Location<D> & next() const;
+	virtual void refine();
+	virtual bool changed() const;
 private:
 	double _deltaX;
 	double _deltaY;
@@ -116,7 +116,7 @@ template <typename D> Location<D> & SimpleGrid<D>::next() const {
 }
 
 template <typename D> void SimpleGrid<D>::refine() {
-	// The simplest for of grid will not have refinement
+	// The simplest form of grid will not have refinement
 	return;
 }
 
