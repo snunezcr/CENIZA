@@ -42,6 +42,13 @@
 #include <DEM.h>
 #include <vector>
 
+enum {
+	GRID_SIMPLE,
+	GRID_QUAD,
+	GRID_OCTA,
+	GRID_NONE
+};
+
 using namespace std;
 
 template <typename D> class Grid {
@@ -51,6 +58,7 @@ public:
 	virtual bool empty() const;
 	virtual bool member(Location<D> location) const;
 	virtual int size() const;
+	virtual int type() const;
 	virtual void add(Location<D> location);
 	virtual void add(vector< Location<D> > locations);
 	virtual Location<D> & next() const;
@@ -58,41 +66,56 @@ public:
 	virtual bool changed() const;
 protected:
 	bool _changed;
+	int _type;
 	Boundary _bounds;
 	DEM *_elevations;
 };
 
-template <typename D> Grid<D>::Grid(Boundary bounds, DEM *elevations) {
+template <typename D>
+Grid<D>::Grid(Boundary bounds, DEM *elevations) {
 	_changed = false;
 	_bounds = bounds;
 	_elevations = elevations;
+	_type = GRID_NONE;
 }
 
-template <typename D> Grid<D>::~Grid() {
+template <typename D>
+Grid<D>::~Grid() {
 
 }
 
-template <typename D> bool Grid<D>::empty() const {
+template <typename D>
+bool Grid<D>::empty() const {
 	return true;
 }
 
-template <typename D> bool Grid<D>::member(Location<D> location) const {
+template <typename D>
+bool Grid<D>::member(Location<D> location) const {
 	return false;
 }
 
-template <typename D> int Grid<D>::size() const {
+template <typename D>
+int Grid<D>::size() const {
 	return 0;
 }
 
-template <typename D> void Grid<D>::add(Location<D> location) {
+template <typename D>
+int Grid<D>::type() const {
+	return _type;
+}
+
+template <typename D>
+void Grid<D>::add(Location<D> location) {
 
 }
 
-template <typename D> void Grid<D>::add(vector< Location<D> > locations) {
+template <typename D>
+void Grid<D>::add(vector< Location<D> > locations) {
 
 }
 
-template <typename D> Location<D> & Grid<D>::next() const {
+template <typename D>
+Location<D> & Grid<D>::next() const {
 	return *(new Location<D>());
 }
 

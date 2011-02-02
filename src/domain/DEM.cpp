@@ -62,6 +62,10 @@ Boundary DEM::getBounds() const {
 	return _bounds;
 }
 
+int DEM::size () const {
+	return _triangles.size();
+}
+
 Point DEM::sample(Point location) const {
 	Point interpolated;
 

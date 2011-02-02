@@ -38,14 +38,18 @@
 #define FIELD_H_
 
 #include <Point.h>
+#include <Boundary.h>
+#include <QuadTree.h>
 
 class Field {
 public:
 	Field(Boundary &b);
 	~Field();
 	void add(Point &p);
+	Point vectorAt(double x, double y, double z) const;
 private:
 	Boundary _bounds;
+	QuadTree<Point, Point> _winds;
 };
 
 #endif /* FIELD_H_ */

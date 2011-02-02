@@ -46,42 +46,62 @@ public:
 	Location(const Location<D> &location);
 	~Location();
 	bool operator==(Location<D> location);
+	bool processed() const;
 	Point &getPoint() const;
 	D &getAttributes() const;
+	void process();
 private:
+	bool _processed;
 	Point _coords;
 	D _attributes;
 };
 
-template <typename D> Location<D>::Location() {
+template <typename D>
+Location<D>::Location() {
 
 }
 
-template <typename D> Location<D>::Location(Point &p, D &attributes) {
+template <typename D>
+Location<D>::Location(Point &p, D &attributes) {
 	_coords = p;
 	_attributes = attributes;
 }
 
-template <typename D> Location<D>::Location(const Location<D> &location) {
+template <typename D>
+Location<D>::Location(const Location<D> &location) {
 	if (&location != this) {
 		_coords = location._coords;
 		_attributes = location._attributes;
 	}
 }
 
-template <typename D> Location<D>::~Location() {
+template <typename D>
+Location<D>::~Location() {
 
 }
 
-template <typename D> bool Location<D>::operator==(Location<D> location) {
+template <typename D>
+bool Location<D>::operator==(Location<D> location) {
 	return _coords == location._coords;
 }
 
-template <typename D> Point & Location<D>::getPoint() const {
+template <typename D>
+bool Location<D>::processed() const {
+	return _processed;
+}
+
+template <typename D>
+void Location<D>::processed() const {
+	_processed = true;
+}
+
+template <typename D>
+Point & Location<D>::getPoint() const {
 	return _coords;
 }
 
-template <typename D> D & Location<D>::getAttributes() const {
+template <typename D>
+D & Location<D>::getAttributes() const {
 	return _attributes;
 }
 

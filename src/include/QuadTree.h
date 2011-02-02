@@ -45,21 +45,24 @@ using namespace std;
 
 template <class T, class S> class QuadTree {
 public:
-	QuadTree(Boundary bounds);
+	QuadTree(Boundary &bounds);
 	~QuadTree();
 	// This is ugly, but required in order to preserve a homogeneous
 	// interface for the programmer regardless of class definitions
 	void add(T element, Boundary objBounds);
 	Boundary getBounds() const;
+	int size() const;
 	S interpolate(double x, double y) const;
+	S closest(double x, double y, double z) const;
 private:
 	// An inner class will handle the quadtree structure
 	class QuadTreeNode {
 	public:
-		QuadTreeNode(Boundary bounds);
+		QuadTreeNode(Boundary &bounds);
 		~QuadTreeNode();
-		int add(T element, Boundary bounds);
+		bool add(T element, Boundary bounds);
 		S interpolate(double x, double y) const;
+		S closest(double x, double y, double z) const;
 	private:
 		// Node data
 		T *_data;
@@ -81,7 +84,7 @@ private:
 };
 
 template <class T, class S>
-	QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary bounds) {
+QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary &bounds) {
 	_data = NULL;
 	_bounds = bounds;
 	_halfX = (_bounds.getURB().getX() - _bounds.getLLF().getX()) / 2;
@@ -93,7 +96,8 @@ template <class T, class S>
 	_upperRight = NULL;
 }
 
-template <class T, class S> QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
+template <class T, class S>
+QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
 	if (_lowerLeft != NULL) {
 		delete _lowerLeft;
 		_lowerLeft = NULL;
@@ -117,47 +121,63 @@ template <class T, class S> QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
 }
 
 template <class T, class S>
-int QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
+bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 	// First case: we are at the insertion point
 	// Status: (not expanded, _data == NULL)
 	// Action: copy incoming data to node
 	if ( (! _expanded) && (_data == NULL)) {
 		_data = new T(element);
-		return 1;
+		return true;
 	}
 	// Second case: we are at an insertion point but it is occupied and not expanded
 	// Status: no child available, not expanded
 	// Action: make all four, relocate current element (possibly more than one node)
 	//         and insert new one.
 	// TODO
+	return false;
 }
 
-template <class T, class S> QuadTree<T,S>::QuadTree(Boundary bounds) {
+template <class T, class S>
+QuadTree<T,S>::QuadTree(Boundary &bounds) {
 	_elements = 0;
 	_root = new QuadTreeNode(bounds);
 	_bounds = bounds;
 }
 
-template <class T, class S> QuadTree<T,S>::~QuadTree() {
+template <class T, class S>
+QuadTree<T,S>::~QuadTree() {
 	if (_root != NULL) {
 		delete _root;
 		_root = NULL;
 	}
 }
 
-template <class T, class S> void QuadTree<T,S>::add(T element, Boundary objBounds) {
-	if (_root.add(element, objBounds) == 1)
+template <class T, class S>
+void QuadTree<T,S>::add(T element, Boundary objBounds) {
+	if (_root->add(element, objBounds))
 		_elements++;
 
 	return;
 }
 
-template <class T, class S> Boundary QuadTree<T,S>::getBounds() const {
+template <class T, class S>
+Boundary QuadTree<T,S>::getBounds() const {
 	return _bounds;
 }
 
-template <class T, class S> S QuadTree<T,S>::interpolate(double x, double y) const {
-	return _root.interpolate(x, y);
+template <class T, class S>
+int QuadTree<T,S>::size() const {
+	return _elements;
+}
+
+template <class T, class S>
+S QuadTree<T,S>::interpolate(double x, double y) const {
+	return _root->interpolate(x, y);
+}
+
+template <class T, class S>
+S QuadTree<T,S>::closest(double x, double y, double z) const {
+	return _root->closest(x, y, z);
 }
 
 #endif /* QUADTREE_H_ */

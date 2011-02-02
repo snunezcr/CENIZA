@@ -49,6 +49,7 @@ public:
 	void load();
 	bool enabled() const;
 	Boundary getBounds() const;
+	int size () const;
 	Point sample(Point location) const;
 	vector<Point> sample(vector<Point> locations) const;
 private:
