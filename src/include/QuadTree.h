@@ -192,10 +192,10 @@ bool QuadTree<T,S>::QuadTreeNode::addInBounds(const T element) {
 	bool added = false;
 
 	// For each point in the boundary of the object, add element
-	added |= addSingleBounds(element, region.getURB());
-	added |= addSingleBounds(element, region.getULB());
-	added |= addSingleBounds(element, region.getLRB());
-	added |= addSingleBounds(element, region.getLLB());
+	added |= addSingleBound(element, region.getURB());
+	added |= addSingleBound(element, region.getULB());
+	added |= addSingleBound(element, region.getLRB());
+	added |= addSingleBound(element, region.getLLB());
 
 	return added;
 }
@@ -203,13 +203,13 @@ bool QuadTree<T,S>::QuadTreeNode::addInBounds(const T element) {
 template <class T, class S>
 bool QuadTree<T,S>::QuadTreeNode::addSingleBound(const T element, const Point &p) {
 	if (p.getX() > _halfX && p.getY() > _halfY)
-		return _upperRight->add(element, element.bound());
+		return _upperRight->add(element);
 	else if (p.getX() <= _halfX && p.getY() > _halfY)
-		return _upperLeft->add(element, element.bound());
+		return _upperLeft->add(element);
 	else if (p.getX() > _halfX && p.getY() <= _halfY)
-		return _lowerRight->add(element, element.bound());
+		return _lowerRight->add(element);
 	else
-		return _lowerLeft->add(element, element.bound());
+		return _lowerLeft->add(element);
 }
 
 template <class T, class S>

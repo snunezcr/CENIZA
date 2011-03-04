@@ -45,7 +45,7 @@ Field::~Field() {
 }
 
 void Field::add(Polygon &p) {
-	_winds.add(p, p.bound());
+	_winds.add(p);
 
 	return;
 }
