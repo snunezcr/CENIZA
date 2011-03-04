@@ -49,7 +49,7 @@ public:
 	~QuadTree();
 	// This is ugly, but required in order to preserve a homogeneous
 	// interface for the programmer regardless of class definitions
-	void add(T element, Boundary objBounds);
+	void add(const T element);
 	Boundary getBounds() const;
 	int size() const;
 	S interpolate(double x, double y) const;
@@ -60,7 +60,7 @@ private:
 	public:
 		QuadTreeNode(Boundary &bounds, int maxSize);
 		~QuadTreeNode();
-		bool add(T element, Boundary bounds);
+		bool add(const T element);
 		S interpolate(double x, double y) const;
 		S closest(double x, double y, double z) const;
 	private:
@@ -76,6 +76,9 @@ private:
 		QuadTreeNode *_lowerRight;
 		QuadTreeNode *_upperLeft;
 		QuadTreeNode *_upperRight;
+		// Helper function for adding in bounds
+		bool addInBounds(const T element);
+		bool addSingleBound(const T element, const Point &p);
 	};
 
 
@@ -122,11 +125,18 @@ QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
 }
 
 template <class T, class S>
-bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
+bool QuadTree<T,S>::QuadTreeNode::add(const T element) {
 	if (_data.size() < _maxSize) {
 		// First case: we are at the insertion point
 		// Status: (not expanded, _data with space)
 		// Action: copy incoming data to node
+
+		// Do not allow duplicates
+		for (unsigned int i = 0; i < _maxSize; i++) {
+			if (_data.at(i) == element)
+				return false;
+		}
+
 		_data.push_back(element);
 		return true;
 	} else if ((_data.size() == _maxSize) && (! _expanded)) {
@@ -157,9 +167,8 @@ bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 
 		// For each existing object, remove from current vector
 		// and reinsert in corresponding places
-		for (unsigned int i = 0; i < _maxSize; i++) {
-			Boundary region = _data.at(i).bound();
-		}
+		for (unsigned int i = 0; i < _maxSize; i++)
+			addInBounds(_data.at(i));
 
 		// Empty current data
 		_data.clear();
@@ -167,15 +176,40 @@ bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 		// Expand node
 		_expanded = true;
 
-		return true;
-	} else if (_expanded) {
+		// Finally, add the element
+		return addInBounds(element);
+	} else {
 		// Third case: we are at the insertion point
 		// Status: (expanded)
 		// Action: find nodes where bounds belong
-	} else {
-
-		return true;
+		return addInBounds(element);
 	}
+}
+
+template <class T, class S>
+bool QuadTree<T,S>::QuadTreeNode::addInBounds(const T element) {
+	Boundary region = element.bound();
+	bool added = false;
+
+	// For each point in the boundary of the object, add element
+	added |= addSingleBounds(element, region.getURB());
+	added |= addSingleBounds(element, region.getULB());
+	added |= addSingleBounds(element, region.getLRB());
+	added |= addSingleBounds(element, region.getLLB());
+
+	return added;
+}
+
+template <class T, class S>
+bool QuadTree<T,S>::QuadTreeNode::addSingleBound(const T element, const Point &p) {
+	if (p.getX() > _halfX && p.getY() > _halfY)
+		return _upperRight->add(element, element.bound());
+	else if (p.getX() <= _halfX && p.getY() > _halfY)
+		return _upperLeft->add(element, element.bound());
+	else if (p.getX() > _halfX && p.getY() <= _halfY)
+		return _lowerRight->add(element, element.bound());
+	else
+		return _lowerLeft->add(element, element.bound());
 }
 
 template <class T, class S>
@@ -195,8 +229,8 @@ QuadTree<T,S>::~QuadTree() {
 }
 
 template <class T, class S>
-void QuadTree<T,S>::add(T element, Boundary objBounds) {
-	if (_root->add(element, objBounds))
+void QuadTree<T,S>::add(const T element) {
+	if (_root->add(element))
 		_elements++;
 
 	return;

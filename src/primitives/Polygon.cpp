@@ -61,6 +61,17 @@ Polygon::Polygon(const Polygon &g) {
 Polygon::~Polygon() {
 }
 
+bool Polygon::operator==(const Polygon &p) const {
+	if (_lines.size() != p._lines.size())
+		return false;
+
+	for (unsigned int i; i < _lines.size(); i++)
+		if (! (_lines.at(i) == p._lines.at(i)))
+				return false;
+
+	return true;
+}
+
 Polygon& Polygon::add(const Line &l) {
 	// Check we have not already added the line
 	for (unsigned int i = 0; i < _lines.size(); i++) {

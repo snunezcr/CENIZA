@@ -49,6 +49,7 @@ public:
 	Polygon();
 	Polygon(const Polygon &g);
 	~Polygon();
+	bool operator==(const Polygon &p) const;
 	Polygon& add(const Line &l);
 	const Point interpolateHeight(double x, double y) const;	// Calculate height at x, y
 	Boundary bound() const;
