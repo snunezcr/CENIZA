@@ -37,6 +37,7 @@
 #ifndef POLYGON_H_
 #define POLYGON_H_
 
+#include <Boundary.h>
 #include <Point.h>
 #include <Line.h>
 #include <vector>
@@ -50,6 +51,7 @@ public:
 	~Polygon();
 	Polygon& add(const Line &l);
 	const Point interpolateHeight(double x, double y) const;	// Calculate height at x, y
+	Boundary bound() const;
 private:
 	vector<Line> _lines;
 	unsigned int _elements;

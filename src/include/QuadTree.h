@@ -123,9 +123,9 @@ QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
 
 template <class T, class S>
 bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
-	if (_data.empty()) {
+	if (_data.size() < _maxSize) {
 		// First case: we are at the insertion point
-		// Status: (not expanded, _data == NULL)
+		// Status: (not expanded, _data with space)
 		// Action: copy incoming data to node
 		_data.push_back(element);
 		return true;
@@ -155,12 +155,25 @@ bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
 		_lowerRight = new QuadTreeNode(lr, _maxSize);
 		_lowerLeft = new QuadTreeNode(ll, _maxSize);
 
-		//
+		// For each existing object, remove from current vector
+		// and reinsert in corresponding places
+		for (unsigned int i = 0; i < _maxSize; i++) {
+			Boundary region = _data.at(i).bound();
+		}
 
+		// Empty current data
+		_data.clear();
+
+		// Expand node
 		_expanded = true;
 
 		return true;
+	} else if (_expanded) {
+		// Third case: we are at the insertion point
+		// Status: (expanded)
+		// Action: find nodes where bounds belong
 	} else {
+
 		return true;
 	}
 }

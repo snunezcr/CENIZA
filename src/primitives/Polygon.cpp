@@ -34,6 +34,14 @@
  *
  */
 
+inline double maxCoord(double a, double b, double c) {
+	return a > b ? (a > c ? a : c) : (b > c ? b : c);
+}
+
+inline double minCoord(double a, double b, double c) {
+	return a < b ? (a < c ? a : c) : (b < c ? b : c);
+}
+
 #include <Polygon.h>
 #include <Matrix.h>
 
@@ -111,4 +119,29 @@ const Point Polygon::interpolateHeight(double x, double y) const {
 	s = s0 + ((s1 - s0) * factors.getX());
 
 	return s;
+}
+
+Boundary Polygon::bound() const {
+	Point llf(minCoord(_lines.at(0).getStart().getX(),
+					_lines.at(1).getStart().getX(),
+					_lines.at(2).getStart().getX()),
+			minCoord(_lines.at(0).getStart().getY(),
+					_lines.at(1).getStart().getY(),
+					_lines.at(2).getStart().getY()),
+			minCoord(_lines.at(0).getStart().getZ(),
+					_lines.at(1).getStart().getZ(),
+					_lines.at(2).getStart().getZ()));
+	Point urb(maxCoord(_lines.at(0).getStart().getX(),
+					_lines.at(1).getStart().getX(),
+					_lines.at(2).getStart().getX()),
+			maxCoord(_lines.at(0).getStart().getY(),
+					_lines.at(1).getStart().getY(),
+					_lines.at(2).getStart().getY()),
+			maxCoord(_lines.at(0).getStart().getZ(),
+					_lines.at(1).getStart().getZ(),
+					_lines.at(2).getStart().getZ()));
+
+	Boundary bounds(llf, urb);
+
+	return bounds;
 }

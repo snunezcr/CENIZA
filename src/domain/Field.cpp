@@ -44,10 +44,8 @@ Field::~Field() {
 
 }
 
-void Field::add(Point &p) {
-	Boundary b(p, p);
-
-	_winds.add(p, b);
+void Field::add(Polygon &p) {
+	_winds.add(p, p.bound());
 
 	return;
 }
