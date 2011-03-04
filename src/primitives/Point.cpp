@@ -35,6 +35,7 @@
  */
 
 #include <Point.h>
+#include <cmath>
 
 Point::Point() {
 	_data[COORD_X] = 0;
@@ -122,5 +123,16 @@ bool Point::operator==(const Point &p) const {
 const Point Point::operator*(double w) const {
 	Point q(_data[COORD_X] * w, _data[COORD_Y] * w, _data[COORD_Z] * w);
 	return q;
+}
+
+double Point::distance(const Point &p) const {
+	double dist = 0;
+
+	dist += pow(_data[COORD_X] - p._data[COORD_X], 2);
+	dist += pow(_data[COORD_Y] - p._data[COORD_Y], 2);
+	dist += pow(_data[COORD_Z] - p._data[COORD_Z], 2);
+	dist = sqrt(dist);
+
+	return dist;
 }
 

@@ -213,6 +213,81 @@ bool QuadTree<T,S>::QuadTreeNode::addSingleBound(const T element, const Point &p
 }
 
 template <class T, class S>
+S QuadTree<T,S>::QuadTreeNode::interpolate(double x, double y) const {
+	if (_data.size() == 0) {
+		// The node is empty, return an empty element
+		return *(new S());
+	} else if (! _expanded) {
+		S location;
+		// The node is a leaf node, search within known elements
+		for (unsigned int i = 0; i < _maxSize; i++) {
+			location = _data.at(i).interpolate(x, y);
+			if (location.getZ() == -1)
+				continue;
+			else
+				break;
+		}
+
+		return location;
+	} else {
+		if (x > _halfX && y > _halfY)
+			return _upperRight->interpolate(x, y);
+		else if (x <= _halfX && y > _halfY)
+			return _upperLeft->interpolate(x, y);
+		else if (x > _halfX && y <= _halfY)
+			return _lowerRight->interpolate(x, y);
+		else
+			return _lowerLeft->interpolate(x, y);
+	}
+}
+
+template <class T, class S>
+S QuadTree<T,S>::QuadTreeNode::closest(double x, double y, double z) const {
+	if (_data.size() == 0) {
+		// The node is empty, return an empty element
+		return *(new S());
+	} else if (! _expanded) {
+		int index = -1;
+		// The node is a leaf node, search within known elements
+		for (unsigned int i = 0; i < _maxSize; i++) {
+			if (_data.at(i).interpolate(x, y).getZ() != -1) {
+				index = i;
+			}
+		}
+
+		if (index == -1) {
+			// There is no known near place, use origin
+			return *(new S());
+		} else {
+			// Create a new component with known data
+			S base(x, y, z);
+			// Get all components
+			vector<S> components = _data.at(index).components();
+			// Use a big number
+			double distance = 1.0E+40;
+
+			for (unsigned int i = 0; i < components.size(); i++) {
+				if (base.distance(components.at(i)) < distance) {
+					distance  = base.distance(components.at(i));
+					index = i;
+				}
+			}
+
+			return components.at(index);
+		}
+	} else {
+		if (x > _halfX && y > _halfY)
+			return _upperRight->closest(x, y, z);
+		else if (x <= _halfX && y > _halfY)
+			return _upperLeft->closest(x, y, z);
+		else if (x > _halfX && y <= _halfY)
+			return _lowerRight->closest(x, y, z);
+		else
+			return _lowerLeft->closest(x, y, z);
+	}
+}
+
+template <class T, class S>
 QuadTree<T,S>::QuadTree(Boundary &bounds, int maxSize) {
 	_elements = 0;
 	_root = new QuadTreeNode(bounds, maxSize);

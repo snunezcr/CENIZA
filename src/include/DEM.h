@@ -44,7 +44,7 @@
 
 class DEM {
 public:
-	DEM(const char *filename, bool enabled, Boundary bounds, int size);
+	DEM(const char *filename, bool enabled, Boundary bounds);
 	~DEM();
 	void load();
 	bool enabled() const;

@@ -51,8 +51,9 @@ public:
 	~Polygon();
 	bool operator==(const Polygon &p) const;
 	Polygon& add(const Line &l);
-	const Point interpolateHeight(double x, double y) const;	// Calculate height at x, y
+	const Point interpolate(double x, double y) const;	// Calculate height at x, y
 	Boundary bound() const;
+	vector<Point> components() const;
 private:
 	vector<Line> _lines;
 	unsigned int _elements;

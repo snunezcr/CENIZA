@@ -36,8 +36,10 @@
 
 #include <DEM.h>
 
-DEM::DEM(const char *filename, bool enabled, Boundary bounds, int size) :
-	_triangles(bounds, size) {
+#define MAX_POLYS	6
+
+DEM::DEM(const char *filename, bool enabled, Boundary bounds) :
+	_triangles(bounds, MAX_POLYS) {
 	_filename = filename;
 	_enabled  = enabled;
 }

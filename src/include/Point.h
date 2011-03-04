@@ -61,6 +61,7 @@ public:
 	double operator*(const Point &p) const;
 	bool operator==(const Point &p) const;
 	const Point operator*(double w) const;
+	double distance(const Point &p) const;
 private:
 	double _data[COORDS_3D];
 };

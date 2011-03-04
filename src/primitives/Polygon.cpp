@@ -85,7 +85,7 @@ Polygon& Polygon::add(const Line &l) {
 	return *this;
 }
 
-const Point Polygon::interpolateHeight(double x, double y) const {
+const Point Polygon::interpolate(double x, double y) const {
 	Point s1(x, y, 1);
 	Point s0(x, y, 0);
 	Point s(x, y, -1);		// -1 represents an error
@@ -155,4 +155,13 @@ Boundary Polygon::bound() const {
 	Boundary bounds(llf, urb);
 
 	return bounds;
+}
+
+vector<Point> Polygon::components() const {
+	vector<Point> points;
+
+	for (unsigned int i = 0; i < _lines.size(); i++)
+		points.push_back(_lines.at(i).getStart());
+
+	return points;
 }
