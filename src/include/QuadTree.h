@@ -45,7 +45,7 @@ using namespace std;
 
 template <class T, class S> class QuadTree {
 public:
-	QuadTree(Boundary &bounds);
+	QuadTree(Boundary &bounds, int maxSize);
 	~QuadTree();
 	// This is ugly, but required in order to preserve a homogeneous
 	// interface for the programmer regardless of class definitions
@@ -58,18 +58,19 @@ private:
 	// An inner class will handle the quadtree structure
 	class QuadTreeNode {
 	public:
-		QuadTreeNode(Boundary &bounds);
+		QuadTreeNode(Boundary &bounds, int maxSize);
 		~QuadTreeNode();
 		bool add(T element, Boundary bounds);
 		S interpolate(double x, double y) const;
 		S closest(double x, double y, double z) const;
 	private:
 		// Node data
-		T *_data;
+		vector<T> _data;
 		Boundary _bounds;
 		double _halfX;
 		double _halfY;
-		bool _expanded;		// We need to keep track of node expansion
+		bool _expanded;
+		unsigned int _maxSize;
 		// Pointers to children nodes
 		QuadTreeNode *_lowerLeft;
 		QuadTreeNode *_lowerRight;
@@ -81,11 +82,11 @@ private:
 	QuadTreeNode *_root;
 	Boundary _bounds;
 	int _elements;
+	unsigned  int _maxSize;
 };
 
 template <class T, class S>
-QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary &bounds) {
-	_data = NULL;
+QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary &bounds, int maxSize) {
 	_bounds = bounds;
 	_halfX = (_bounds.getURB().getX() - _bounds.getLLF().getX()) / 2;
 	_halfY = (_bounds.getURB().getY() - _bounds.getLLF().getY()) / 2;
@@ -94,6 +95,7 @@ QuadTree<T,S>::QuadTreeNode::QuadTreeNode(Boundary &bounds) {
 	_lowerRight = NULL;
 	_upperLeft = NULL;
 	_upperRight = NULL;
+	_maxSize = maxSize;
 }
 
 template <class T, class S>
@@ -114,34 +116,61 @@ QuadTree<T,S>::QuadTreeNode::~QuadTreeNode() {
 		delete _upperRight;
 		_upperRight = NULL;
 	}
-	if (_data != NULL) {
-		delete _data;
-		_data = NULL;
+	if (_data.size() != 0) {
+		_data.clear();
 	}
 }
 
 template <class T, class S>
 bool QuadTree<T,S>::QuadTreeNode::add(T element, Boundary bounds) {
-	// First case: we are at the insertion point
-	// Status: (not expanded, _data == NULL)
-	// Action: copy incoming data to node
-	if ( (! _expanded) && (_data == NULL)) {
-		_data = new T(element);
+	if (_data.empty()) {
+		// First case: we are at the insertion point
+		// Status: (not expanded, _data == NULL)
+		// Action: copy incoming data to node
+		_data.push_back(element);
+		return true;
+	} else if ((_data.size() == _maxSize) && (! _expanded)) {
+		// Second case: we are at an insertion point but it is occupied and not expanded
+		// Status: no child available, not expanded
+		// Action: make all four, relocate current element (possibly more than one node)
+		//         and insert new one.
+
+		// Calculate all bounds
+		Point midLeft(_bounds.getLLF().getX(), _halfY, 0);
+		Point midRight(_bounds.getURF().getX(), _halfY, 0);
+		Point midUpper(_halfX, _bounds.getURF().getY(), 0);
+		Point midLower(_halfX, _bounds.getLRF().getY(), 0);
+		Point midSpace(_halfX, _halfY, 0);
+		Point upRight = _bounds.getURF();
+		Point lowLeft = _bounds.getLLF();
+
+		Boundary ur(midSpace, upRight);
+		Boundary ul(midLeft, midUpper);
+		Boundary lr(midLower, midRight);
+		Boundary ll(lowLeft, midSpace);
+
+		// Create new nodes
+		_upperRight = new QuadTreeNode(ur, _maxSize);
+		_upperLeft = new QuadTreeNode(ul, _maxSize);
+		_lowerRight = new QuadTreeNode(lr, _maxSize);
+		_lowerLeft = new QuadTreeNode(ll, _maxSize);
+
+		//
+
+		_expanded = true;
+
+		return true;
+	} else {
 		return true;
 	}
-	// Second case: we are at an insertion point but it is occupied and not expanded
-	// Status: no child available, not expanded
-	// Action: make all four, relocate current element (possibly more than one node)
-	//         and insert new one.
-	// TODO
-	return false;
 }
 
 template <class T, class S>
-QuadTree<T,S>::QuadTree(Boundary &bounds) {
+QuadTree<T,S>::QuadTree(Boundary &bounds, int maxSize) {
 	_elements = 0;
-	_root = new QuadTreeNode(bounds);
+	_root = new QuadTreeNode(bounds, maxSize);
 	_bounds = bounds;
+	_maxSize = maxSize;
 }
 
 template <class T, class S>

@@ -36,8 +36,8 @@
 
 #include <DEM.h>
 
-DEM::DEM(const char *filename, bool enabled, Boundary bounds) :
-	_triangles(bounds) {
+DEM::DEM(const char *filename, bool enabled, Boundary bounds, int size) :
+	_triangles(bounds, size) {
 	_filename = filename;
 	_enabled  = enabled;
 }
@@ -67,13 +67,11 @@ int DEM::size () const {
 }
 
 Point DEM::sample(Point location) const {
-	Point interpolated;
 
 	if (! _enabled)
 		return *(new Point(location.getX(), location.getY(), 0));
 
-	// Todo: interpolate with quadtree
-	return interpolated;
+	return _triangles.interpolate(location.getX(), location.getY());
 }
 
 vector<Point> DEM::sample(vector<Point> locations) const {

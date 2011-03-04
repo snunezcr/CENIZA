@@ -36,7 +36,7 @@
 
 #include <Field.h>
 
-Field::Field(Boundary &b) : _winds(b) {
+Field::Field(Boundary &b, int size) : _winds(b, size) {
 	_bounds = b;
 }
 

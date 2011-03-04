@@ -43,7 +43,7 @@
 
 class Field {
 public:
-	Field(Boundary &b);
+	Field(Boundary &b, int size);
 	~Field();
 	void add(Point &p);
 	Point vectorAt(double x, double y, double z) const;
